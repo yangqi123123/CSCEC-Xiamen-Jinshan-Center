@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>工作台 - 中建四局智能运营管理系统</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/tob-ui.css">
+  <style>
+    .home-board{display:grid;gap:16px}.home-row{display:grid;gap:16px}.home-row-three{grid-template-columns:5fr 4fr 4fr}.home-row-two{grid-template-columns:repeat(2,minmax(0,1fr))}.home-card{min-width:0;padding:20px}.home-card .card-title-row{margin-bottom:18px}.home-more{color:var(--text-secondary);font-size:13px;text-decoration:none;white-space:nowrap;cursor:pointer}.period-switch{display:flex;gap:4px;padding:4px;background:#f3f6fb;border-radius:6px}.period-switch button{height:30px;padding:0 15px;border:0;border-radius:4px;background:transparent;color:var(--text-secondary);cursor:pointer}.period-switch button.active{background:#fff;color:var(--primary);box-shadow:0 1px 4px rgba(22,44,80,.12);font-weight:600}.metric-caption{display:flex;justify-content:space-between;gap:8px;color:var(--text-secondary);font-size:12px}.metric-caption strong{color:var(--text-primary);font-size:13px}.asset-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 14px}.asset-item{display:grid;grid-template-columns:36px 1fr;align-items:center;gap:10px}.asset-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:8px;color:#fff;background:#5b83ff}.asset-icon.green{background:#69bca9}.asset-icon.orange{background:#e2a246}.asset-label{color:var(--text-secondary);font-size:12px}.asset-value{margin-top:4px;color:var(--text-title);font-size:18px;font-weight:700}.rent-table{width:100%;border-collapse:collapse;font-size:12px}.rent-table th{padding:8px 6px;background:var(--primary-bg);color:var(--text-secondary);font-weight:600;text-align:left}.rent-table td{padding:8px 6px;color:var(--text-primary);border-bottom:1px solid var(--divider)}.rent-rate{color:var(--primary);font-weight:600}.quick-grid.home-quick{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.home-quick .quick-item{min-height:64px;padding:12px;display:flex;align-items:center;gap:10px;min-width:0}.home-quick .quick-icon{flex:0 0 32px;width:32px;height:32px;margin:0}.home-quick .quick-title{font-size:13px;white-space:nowrap}.home-quick .quick-desc{display:none}.donut-panel{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center;min-height:190px}.home-donut{width:140px;height:140px;border-radius:50%;position:relative;display:grid;place-items:center;background:conic-gradient(#5b83ff 0 64%,#78c6df 64% 100%)}.home-donut.purple{background:conic-gradient(#8065df 0 67%,#b05add 67% 100%)}.home-donut::after{content:"";position:absolute;inset:30px;border-radius:50%;background:#fff}.donut-center{position:relative;z-index:1;display:grid;text-align:center;color:var(--text-title);font-size:24px;font-weight:700}.donut-center small{color:var(--text-secondary);font-size:12px;font-weight:400}.stat-list{display:grid;gap:13px}.stat-row{display:grid;grid-template-columns:10px 1fr auto;gap:8px;align-items:center;color:var(--text-primary);font-size:13px}.stat-dot{width:8px;height:8px;border-radius:50%;background:#5b83ff}.stat-dot.cyan{background:#78c6df}.stat-dot.purple{background:#b05add}.stat-row strong{color:var(--text-title)}.chart-legend{display:flex;gap:14px;align-items:center;color:var(--text-secondary);font-size:12px}.bar-chart{display:grid;gap:10px}.chart-bars{position:relative;height:170px;display:flex;align-items:end;gap:18px;padding:10px 12px 0;border-bottom:1px solid var(--divider);background:repeating-linear-gradient(to bottom,transparent 0,transparent 41px,#edf1f7 42px)}.bar-group{flex:1;height:100%;display:flex;align-items:end;justify-content:center;gap:3px}.bar-stack{width:12px;height:var(--h);background:var(--c);border-radius:3px 3px 0 0}.bar-caption{display:flex;justify-content:space-around;color:var(--text-secondary);font-size:12px}.bar-chart .axis-label{position:absolute;top:0;color:var(--text-secondary);font-size:11px}.axis-left{left:0}.axis-right{right:0}.axis-tick{position:absolute;color:var(--text-secondary);font-size:11px}.tick-left{left:0}.tick-right{right:0}.tick-left.top,.tick-right.top{top:18px}.tick-left.bottom,.tick-right.bottom{bottom:4px}.chart-tooltip{display:none;position:absolute;z-index:4;left:50%;top:18px;min-width:130px;padding:10px 12px;background:#fff;border:1px solid #c5ccd6;border-radius:5px;box-shadow:0 4px 14px rgba(20,36,60,.16);font-size:12px}.chart-tooltip.show{display:grid;gap:6px}.chart-tooltip strong{font-size:14px;color:var(--text-title)}.chart-tooltip span{display:grid;grid-template-columns:8px 1fr auto;gap:6px;align-items:center}.chart-tooltip i{width:8px;height:8px;border-radius:50%}.alarm-summary{display:grid;grid-template-columns:145px 1fr;gap:18px;align-items:center}.alarm-card{background:#fff}.alarm-card .home-donut{background:conic-gradient(#ef765d 0 82%,#e2a246 82% 100%)}.alarm-card .stat-row{border-bottom:1px solid var(--divider);padding-bottom:10px}.list-panel{min-height:210px}.list-row{display:grid;grid-template-columns:10px 1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--divider);font-size:13px}.list-row:last-child{border-bottom:0}.list-row time{color:var(--text-secondary);font-size:12px}.empty-state{min-height:150px;display:grid;place-items:center;color:var(--text-secondary);font-size:13px}.shortcut-letter{font-size:14px;font-weight:700}.shortcut-config{display:grid;gap:16px}.shortcut-hint{padding:14px 16px;border:1px solid #e7edf6;background:#f7f9fc;color:var(--text-secondary);font-size:13px;line-height:1.6}.shortcut-tree{max-height:360px;overflow:auto;border:1px solid var(--divider);padding:10px 14px}.shortcut-node{display:grid;gap:7px}.shortcut-node .shortcut-node{margin-left:22px}.shortcut-check{display:flex;align-items:center;gap:8px;min-height:30px;color:var(--text-primary);font-size:14px}.shortcut-check input{width:15px;height:15px;accent-color:var(--primary)}.shortcut-check.is-directory{color:#a9b2c1}.shortcut-check.is-directory input{cursor:not-allowed;opacity:.55}.quick-tree-children{margin-left:20px}@media(max-width:1100px){.home-row-three,.home-row-two{grid-template-columns:1fr}}@media(max-width:720px){.asset-grid{grid-template-columns:repeat(2,1fr)}.donut-panel,.alarm-summary{grid-template-columns:1fr;justify-items:center}.stat-list{width:100%}.period-switch{width:100%;justify-content:space-between}}
+  </style>
+  <style>
+    .screen-frame.stack { gap: 16px; }
+    .page-head { margin-bottom: 0; }
+    .metric-grid { gap: 16px; }
+    .list-panel .list-row strong { font: inherit; color: inherit; font-weight: 400; }
+  </style>
+  <style>
+    .bar-chart { min-width: 0; overflow: hidden; }
+    .chart-bars { overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; }
+    .chart-bars .bar-group { flex: 0 0 30px; flex-direction: column; justify-content: flex-end; align-items: center; min-width: 30px; }
+    .chart-bars .bar-stack { flex: 0 0 auto; }
+    .bar-caption { overflow-x: auto; overflow-y: hidden; justify-content: flex-start; scrollbar-width: thin; }
+    .bar-caption span { flex: 0 0 30px; text-align: center; }
+    .chart-tooltip { pointer-events: none; }
+  </style>
+</head>
+<body data-menu-key="home" data-page-section="中建四局智能运营管理系统" data-page-title="工作台">
+<div class="app-shell"><aside id="app-sidebar" class="sidebar"></aside><header id="app-header" class="header"></header><main class="main"><div class="screen-frame stack">
+  <section class="page-head"><div><h1 class="page-title">工作台</h1><p class="page-desc">统一查看平台运行、资产、工单与报警信息。</p></div><div class="period-switch" role="tablist" aria-label="统计周期"><button class="active" type="button" data-period="today">今日</button><button type="button" data-period="week">本周</button><button type="button" data-period="month">本月</button><button type="button" data-period="year">本年</button></div></section>
+  <section class="metric-grid"><article class="metric-card"><div class="metric-label">待办总数</div><div class="metric-number" data-stat="todo">30</div><div class="metric-caption"><span>巡检 <strong data-stat="inspection">10</strong></span><span>保养 <strong data-stat="maintenance">10</strong></span><span>工单 <strong data-stat="workorder">10</strong></span></div></article><article class="metric-card"><div class="metric-label">租赁房源</div><div class="metric-number" data-stat="rent">30</div><div class="metric-caption"><span>出租率 <strong data-stat="rentRate">80%</strong></span><span>空置率 <strong data-stat="vacancyRate">20%</strong></span></div></article><article class="metric-card"><div class="metric-label">设备总数</div><div class="metric-number" data-stat="devices">30</div><div class="metric-caption"><span>在线 <strong data-stat="online">10</strong></span><span>离线 <strong data-stat="offline">10</strong></span><span>故障 <strong data-stat="fault">10</strong></span></div></article><article class="metric-card"><div class="metric-label">报警总数</div><div class="metric-number" data-stat="alarms">30</div><div class="metric-caption"><span>未处理 <strong data-stat="alarmOpen">10</strong></span><span>处理中 <strong data-stat="alarmProgress">10</strong></span><span>已处理 <strong data-stat="alarmDone">10</strong></span></div></article></section>
+  <section class="home-board">
+    <div class="home-row home-row-three"><article class="card home-card"><div class="card-title-row"><h2 class="card-title">空间资产</h2><a class="home-more" href="../project/house.html">更多 <i class="fa-solid fa-angle-right"></i></a></div><div class="asset-grid"><div class="asset-item"><span class="asset-icon"><i class="fa-solid fa-house"></i></span><div><div class="asset-label">租赁房源</div><div class="asset-value">124</div></div></div><div class="asset-item"><span class="asset-icon green"><i class="fa-solid fa-house-circle-check"></i></span><div><div class="asset-label">已租房源</div><div class="asset-value">1</div></div></div><div class="asset-item"><span class="asset-icon"><i class="fa-solid fa-house-circle-xmark"></i></span><div><div class="asset-label">空置房源</div><div class="asset-value">123</div></div></div><div class="asset-item"><span class="asset-icon"><i class="fa-solid fa-border-all"></i></span><div><div class="asset-label">租赁面积(m²)</div><div class="asset-value">84,123.60</div></div></div><div class="asset-item"><span class="asset-icon green"><i class="fa-solid fa-building"></i></span><div><div class="asset-label">已租面积(m²)</div><div class="asset-value">54.06</div></div></div><div class="asset-item"><span class="asset-icon orange"><i class="fa-solid fa-key"></i></span><div><div class="asset-label">空置面积(m²)</div><div class="asset-value">84,069.54</div></div></div></div></article><article class="card home-card"><div class="card-title-row"><h2 class="card-title">楼层租赁明细</h2><a class="home-more" href="../project/floor.html">更多 <i class="fa-solid fa-angle-right"></i></a></div><table class="rent-table"><thead><tr><th>楼层</th><th>已租面积/总面积(m²)</th><th>出租率</th></tr></thead><tbody><tr><td>1F-2F</td><td>0 / 2344.44</td><td class="rent-rate">0%</td></tr><tr><td>1F-4F</td><td>4789.44 / 4789.44</td><td class="rent-rate">100%</td></tr><tr><td>1F-6F</td><td>0 / 3311.98</td><td class="rent-rate">0%</td></tr><tr><td>1F-8F</td><td>1797 / 1797</td><td class="rent-rate">100%</td></tr><tr><td>1F-10F</td><td>0 / 2159.37</td><td class="rent-rate">0%</td></tr></tbody></table></article><article class="card home-card"><div class="card-title-row"><h2 class="card-title">快捷导航</h2><a class="home-more" href="../system/menu.html">管理 <i class="fa-solid fa-gear"></i></a></div><div class="quick-grid home-quick"><a class="quick-item" href="../project/project-management.html"><span class="quick-icon blue"><i class="fa-solid fa-clipboard-list"></i></span><span class="quick-title">保养计划</span></a><a class="quick-item" href="../device/maintenance.html"><span class="quick-icon green"><i class="fa-solid fa-arrows-rotate"></i></span><span class="quick-title">巡检计划</span></a><a class="quick-item" href="../device/list.html"><span class="quick-icon yellow"><i class="fa-solid fa-boxes-stacked"></i></span><span class="quick-title">库存台账</span></a><a class="quick-item" href="../device/list.html"><span class="quick-icon blue"><i class="fa-solid fa-list-check"></i></span><span class="quick-title">设备列表</span></a><a class="quick-item" href="../energy/carbon-data.html"><span class="quick-icon purple"><i class="fa-solid fa-gauge-high"></i></span><span class="quick-title">仪表档案</span></a><a class="quick-item" href="../energy/carbon-data.html"><span class="quick-icon green"><i class="fa-solid fa-chart-column"></i></span><span class="quick-title">仪表用量</span></a></div></article></div>
+    <div class="home-row home-row-two"><article class="card home-card"><div class="card-title-row"><h2 class="card-title">报修类型统计</h2><a class="home-more" href="../project/project-management.html">更多 <i class="fa-solid fa-angle-right"></i></a></div><div class="donut-panel"><div class="home-donut"><div class="donut-center">11<small>报修总数</small></div></div><div class="stat-list"><div class="stat-row"><i class="stat-dot"></i><span>室内报修</span><strong>63.64%</strong></div><div class="stat-row"><i class="stat-dot cyan"></i><span>公区报修</span><strong>36.36%</strong></div></div></div></article><article class="card home-card"><div class="card-title-row"><h2 class="card-title">投诉类型统计</h2><a class="home-more" href="../project/project-management.html">更多 <i class="fa-solid fa-angle-right"></i></a></div><div class="donut-panel"><div class="home-donut purple"><div class="donut-center">3<small>投诉总数</small></div></div><div class="stat-list"><div class="stat-row"><i class="stat-dot purple"></i><span>物业服务</span><strong>66.67%</strong></div><div class="stat-row"><i class="stat-dot" style="background:#8065df"></i><span>食堂服务</span><strong>33.33%</strong></div></div></div></article></div>
+    <div class="home-row home-row-two"><article class="card home-card"><div class="card-title-row"><h2 class="card-title">报修工单状态分析</h2><span class="status-muted">本月</span></div><div class="bar-chart"><div class="chart-bars"><div class="bar-group"><i class="bar-stack" style="--h:50%;--c:#5278e4"></i><i class="bar-stack" style="--h:25%;--c:#6bb6de"></i></div><div class="bar-group"><i class="bar-stack" style="--h:85%;--c:#5278e4"></i><i class="bar-stack" style="--h:45%;--c:#6bb6de"></i></div><div class="bar-group"><i class="bar-stack" style="--h:65%;--c:#5278e4"></i><i class="bar-stack" style="--h:30%;--c:#71c8d9"></i></div><div class="bar-group"><i class="bar-stack" style="--h:45%;--c:#5278e4"></i></div><div class="bar-group"><i class="bar-stack" style="--h:40%;--c:#60b5a8"></i></div><div class="bar-group"><i class="bar-stack" style="--h:55%;--c:#5278e4"></i></div></div><div class="bar-caption"><span>1号</span><span>2号</span><span>3号</span><span>10号</span><span>16号</span><span>21号</span></div><div class="chart-legend"><span><i class="legend-dot" style="background:#5278e4"></i>待处理</span><span><i class="legend-dot" style="background:#6bb6de"></i>处理中</span><span><i class="legend-dot" style="background:#e2a246"></i>完成率</span></div></div></article><article class="card home-card"><div class="card-title-row"><h2 class="card-title">投诉工单状态分析</h2><span class="status-muted">本月</span></div><div class="bar-chart"><div class="chart-bars"><div class="bar-group"><i class="bar-stack" style="--h:80%;--c:#8265df"></i><i class="bar-stack" style="--h:35%;--c:#b05add"></i></div><div class="bar-group"><i class="bar-stack" style="--h:46%;--c:#8265df"></i></div><div class="bar-group"><i class="bar-stack" style="--h:30%;--c:#b05add"></i></div><div class="bar-group"><i class="bar-stack" style="--h:56%;--c:#8265df"></i></div></div><div class="bar-caption"><span>2号</span><span>10号</span><span>16号</span><span>21号</span></div><div class="chart-legend"><span><i class="legend-dot" style="background:#8265df"></i>待确认</span><span><i class="legend-dot" style="background:#b05add"></i>已完成</span><span><i class="legend-dot" style="background:#e2a246"></i>完成率</span></div></div></article></div>
+    <div class="home-row home-row-two"><article class="card home-card"><div class="card-title-row"><h2 class="card-title">设备异常工单状态分析</h2><span class="status-muted">本月</span></div><div class="bar-chart"><div class="chart-bars"><div class="bar-group"><i class="bar-stack" style="--h:75%;--c:#d85b4c"></i></div><div class="bar-group"><i class="bar-stack" style="--h:55%;--c:#e47c2f"></i></div><div class="bar-group"><i class="bar-stack" style="--h:50%;--c:#e47c2f"></i></div></div><div class="bar-caption"><span>7号</span><span>21号</span><span>22号</span></div><div class="chart-legend"><span><i class="legend-dot" style="background:#e47c2f"></i>待处理</span><span><i class="legend-dot" style="background:#d85b4c"></i>已完成</span><span><i class="legend-dot" style="background:#e2a246"></i>完成率</span></div></div></article><article class="card home-card alarm-card"><div class="card-title-row"><h2 class="card-title">报警类型</h2><a class="home-more" href="../alarm-center/alarm-info.html">详情 <i class="fa-solid fa-angle-right"></i></a></div><div class="alarm-summary"><div class="home-donut"><div class="donut-center">11<small>报警总数</small></div></div><div class="stat-list"><div class="stat-row"><i class="stat-dot" style="background:#ef765d"></i><span>设备属性</span><strong>9个　81.82%</strong></div><div class="stat-row"><i class="stat-dot" style="background:#e2a246"></i><span>设备离线</span><strong>2个　18.18%</strong></div></div></div></article></div>
+    <div class="home-row home-row-two"><article class="card home-card list-panel"><div class="card-title-row"><h2 class="card-title">待办事项 <span class="tag danger">5</span></h2><a class="home-more" href="../device/maintenance.html">更多 <i class="fa-solid fa-angle-right"></i></a></div><div class="empty-state"><i class="fa-regular fa-clipboard" style="font-size:28px;margin-right:8px"></i>暂无待办事项</div></article><article class="card home-card list-panel"><div class="card-title-row"><h2 class="card-title">系统消息 <span class="tag danger">3</span></h2><a class="home-more" href="../alarm-center/alarm-info.html">更多 <i class="fa-solid fa-angle-right"></i></a></div><div class="list-row"><i class="stat-dot" style="background:#d4dce8"></i><span>工单超时通知</span><time>08/04 09:53:19</time></div><div class="list-row"><i class="stat-dot" style="background:#ef8f2d"></i><strong>设备属性报警提醒</strong><time>08/04 09:53:19</time></div><div class="list-row"><i class="stat-dot" style="background:#ef8f2d"></i><strong>设备离线报警提醒</strong><time>08/04 09:13:19</time></div><div class="list-row"><i class="stat-dot" style="background:#d4dce8"></i><span>系统维护通知</span><time>07/31 13:51:34</time></div></article></div>
+  </section>
+</div></main></div>
+<script src="../../../app/config/menu.js?v=project-1"></script><script src="../../../app/data/mock-data.js"></script><script src="../../../app/components/sidebar.js?v=lot-host-7"></script><script src="../../../app/components/header.js?v=lot-tabs-1"></script><script src="../../../app/components/drawer.js"></script><script src="../../../app/components/requirement.js"></script>
+<script>
+  document.querySelectorAll(".rent-table tbody tr").forEach((row, index) => { const building = index < 3 ? "1号楼" : "2号楼"; const floor = ["1F", "4F", "6F", "8F", "10F"][index]; row.cells[0].textContent = `${building}${floor}`; });
+(() => {
+  const periods = {
+    today: { todo: 30, inspection: 10, maintenance: 10, workorder: 10, rent: 30, rentRate: "80%", vacancyRate: "20%", devices: 30, online: 10, offline: 10, fault: 10, alarms: 30, alarmOpen: 10, alarmProgress: 10, alarmDone: 10 },
+    week: { todo: 86, inspection: 31, maintenance: 28, workorder: 27, rent: 124, rentRate: "82%", vacancyRate: "18%", devices: 1094, online: 932, offline: 98, fault: 64, alarms: 42, alarmOpen: 19, alarmProgress: 13, alarmDone: 10 },
+    month: { todo: 356, inspection: 118, maintenance: 104, workorder: 134, rent: 124, rentRate: "80%", vacancyRate: "20%", devices: 1094, online: 932, offline: 98, fault: 64, alarms: 56, alarmOpen: 24, alarmProgress: 18, alarmDone: 14 },
+    year: { todo: 2480, inspection: 820, maintenance: 760, workorder: 900, rent: 124, rentRate: "78%", vacancyRate: "22%", devices: 1094, online: 904, offline: 121, fault: 69, alarms: 620, alarmOpen: 210, alarmProgress: 190, alarmDone: 220 }
+  };
+  const setStats = (key) => {
+    Object.entries(periods[key]).forEach(([name, value]) => document.querySelectorAll(`[data-stat="${name}"]`).forEach((node) => node.textContent = value));
+    const totals = { today: [11, 3, 30], week: [28, 9, 42], month: [96, 24, 56], year: [1180, 360, 620] }[key];
+    const totalLabels = ["报修总数", "投诉总数", "报警总数"];
+    totalLabels.forEach((label, index) => { const node = [...document.querySelectorAll(".donut-center")].find((item) => item.textContent.includes(label)); if (node) node.firstChild.textContent = totals[index]; });
+  };
+  document.querySelectorAll("[data-period]").forEach((button) => button.addEventListener("click", () => {
+    document.querySelectorAll("[data-period]").forEach((item) => item.classList.toggle("active", item === button));
+    setStats(button.dataset.period);
+  }));
+
+  const chartTitles = ["报修工单状态分析", "投诉工单状态分析", "设备异常工单状态分析"];
+  chartTitles.forEach((title) => {
+    const heading = [...document.querySelectorAll(".card-title")].find((node) => node.textContent.trim() === title);
+    const card = heading?.closest(".home-card");
+    const legend = card?.querySelector(".chart-legend");
+    if (heading && legend) heading.parentElement.appendChild(legend);
+    card?.querySelector(".status-muted")?.remove();
+  });
+  ["空间资产", "楼层租赁明细", "报修类型统计", "投诉类型统计"].forEach((title) => {
+    const heading = [...document.querySelectorAll(".card-title")].find((node) => node.textContent.trim() === title);
+    heading?.parentElement.querySelector(".home-more")?.remove();
+  });
+  const alarmHeading = [...document.querySelectorAll(".card-title")].find((node) => node.textContent.trim() === "报警类型");
+  alarmHeading?.parentElement.querySelector(".home-more")?.remove();
+
+  const menuItems = ["设备管理", "报警消息", "巡检计划", "保养计划", "投诉建议", "报事报修"].map((label) => ({ label, href: "#", depth: 0 }));
+  const walk = (items, depth = 0) => (items || []).forEach((item) => { menuItems.push({ ...item, depth }); walk(item.children, depth + 1); });
+  walk(window.APP_MENU || []);
+  const quickDefaults = ["设备管理", "报警消息", "巡检计划", "保养计划", "投诉建议", "报事报修"];
+  let quickNames = [...quickDefaults];
+  const quickHost = document.querySelector(".home-quick");
+  const quickLinks = { "设备管理": "../device/list.html", "报警消息": "../alarm-center/alarm-info.html", "巡检计划": "../device/maintenance.html", "保养计划": "../device/maintenance.html", "投诉建议": "#", "报事报修": "#" };
+  const renderQuick = () => { if (!quickHost) return; quickHost.innerHTML = quickNames.slice(0, 6).map((name, index) => `<a class="quick-item" href="${quickLinks[name] || "#"}"><span class="quick-icon ${["blue", "green", "yellow", "purple"][index % 4]}"><span class="shortcut-letter">${name.slice(0, 1)}</span></span><span class="quick-title">${name}</span></a>`).join(""); };
+  renderQuick();
+  const manage = [...document.querySelectorAll(".home-card")].find((card) => card.querySelector(".card-title")?.textContent.trim() === "快捷导航")?.querySelector(".home-more");
+  const renderShortcutTree = (items, depth = 0) => (items || []).map((item) => {
+    const isDirectory = !item.href && item.children?.length;
+    const node = `<label class="shortcut-check ${isDirectory ? "is-directory" : ""}" style="padding-left:${depth * 18}px"><input type="checkbox" data-shortcut-name="${item.label}" ${isDirectory ? "disabled" : ""} ${quickNames.includes(item.label) ? "checked" : ""}>${item.label}</label>`;
+    return node + (item.children?.length ? `<div class="quick-tree-children">${renderShortcutTree(item.children, depth + 1)}</div>` : "");
+  }).join("");
+  const treeHtml = renderShortcutTree(window.APP_MENU || []);
+  manage?.setAttribute("href", "#");
+  manage?.addEventListener("click", (event) => { event.preventDefault(); window.openAppDrawer({ title: "配置快捷导航", body: `<div class="shortcut-config"><div class="shortcut-hint">最多选择6个常用菜单，权限被收回后首页会自动隐藏对应入口。</div><div class="shortcut-tree">${treeHtml || "暂无可配置菜单"}</div></div>`, footer: `<button class="btn btn-secondary" data-drawer-close>取消</button><button class="btn btn-primary" data-shortcut-save>保存</button>` }); setTimeout(() => { document.querySelector("[data-shortcut-save]")?.addEventListener("click", () => { const selected = [...document.querySelectorAll("[data-shortcut-name]:checked:not(:disabled)")].map((node) => node.dataset.shortcutName); if (selected.length > 6) return; quickNames = selected; renderQuick(); window.closeAppDrawer(); }); }, 0); });
+  document.querySelectorAll(".home-more").forEach((link) => { if (link !== manage) link.addEventListener("click", (event) => event.preventDefault()); });
+
+  const taskList = document.querySelector(".list-panel");
+  const todoCard = [...document.querySelectorAll(".list-panel")].find((card) => card.querySelector(".card-title")?.textContent.includes("待办事项"));
+  if (todoCard) { const items = [{ title: "设备巡检待处理", meta: "设备管理 · 今日 10:30", level: "warning" }, { title: "保养计划待确认", meta: "设备管理 · 今日 14:00", level: "primary" }, { title: "报事报修待接单", meta: "服务中心 · 明日 09:00", level: "danger" }]; todoCard.querySelector(".empty-state")?.remove(); items.forEach((item) => { const row = document.createElement("div"); row.className = "list-row"; row.innerHTML = `<i class="dot ${item.level}"></i><span>${item.title}</span><time>${item.meta}</time>`; todoCard.appendChild(row); }); }
+})();
+</script>
+<script>
+(() => {
+  const axis = {
+    today: Array.from({length: 24}, (_, i) => `${String(i).padStart(2, "0")}:00`),
+    week: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+    month: ["1日", "5日", "10日", "15日", "20日", "25日", "30日"],
+    year: Array.from({length: 12}, (_, i) => `${i + 1}月`)
+  };
+  const chartData = {
+    repair: { today: [1, 0, 2, 1, 0, 1, 2, 1, 0, 1, 1, 2, 0, 1, 2, 1, 0, 1, 2, 1, 0, 1, 0, 1], week: [5, 8, 4, 7, 3, 2, 1], month: [8, 12, 9, 15, 10, 13, 7], year: [42, 48, 56, 62, 58, 64, 70, 66, 74, 80, 76, 84] },
+    complaint: { today: [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0], week: [1, 2, 0, 1, 2, 1, 1], month: [2, 4, 3, 5, 2, 4, 3], year: [18, 20, 24, 22, 28, 30, 26, 32, 35, 38, 40, 44] },
+    device: { today: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0], week: [3, 4, 2, 5, 3, 2, 1], month: [5, 8, 6, 9, 7, 10, 6], year: [20, 24, 28, 26, 32, 35, 30, 38, 42, 46, 44, 50] }
+  };
+  const charts = [...document.querySelectorAll(".home-card")].filter((card) => ["报修工单状态分析", "投诉工单状态分析", "设备异常工单状态分析"].includes(card.querySelector(".card-title")?.textContent.trim()));
+  const setAxis = (key) => charts.forEach((card, index) => {
+    const type = index === 0 ? "repair" : index === 1 ? "complaint" : "device";
+    const labels = axis[key];
+    const data = chartData[type][key];
+    const caption = card.querySelector(".bar-caption");
+    const bars = card.querySelector(".chart-bars");
+    if (!caption || !bars) return;
+    caption.innerHTML = labels.map((label) => `<span>${label}</span>`).join("");
+    bars.innerHTML = data.map((value, i) => `<div class="bar-group"><i class="bar-stack" style="--h:${Math.max(8, Math.min(92, value * 5))}%;--c:${index === 1 ? "#8265df" : index === 2 ? "#d85b4c" : "#5278e4"}"></i>${index === 2 ? `<i class="bar-stack" style="--h:${Math.max(6, Math.min(80, value * 3))}%;--c:#e47c2f"></i><i class="bar-stack" style="--h:${Math.max(5, Math.min(70, value * 2))}%;--c:#e2a246"></i>` : ""}</div>`).join("");
+    if (index === 2) { const curve = document.createElementNS("http://www.w3.org/2000/svg", "svg"); curve.className.baseVal = "completion-curve"; curve.setAttribute("viewBox", `0 0 ${Math.max(320, labels.length * 48)} 170`); curve.innerHTML = `<polyline points="${data.map((value, i) => `${i * 48 + 24},${150 - Math.min(125, value * 2)}`).join(" ")}" fill="none" stroke="#e2a246" stroke-width="2"/><circle cx="24" cy="${150 - Math.min(125, data[0] * 2)}" r="3" fill="#fff" stroke="#e2a246" stroke-width="2"/>`; bars.appendChild(curve); }
+  });
+  document.querySelectorAll("[data-period]").forEach((button) => button.addEventListener("click", () => setTimeout(() => setAxis(button.dataset.period), 0)));
+  setAxis("today");
+  const complaintCard = [...document.querySelectorAll(".home-card")].find((card) => card.querySelector(".card-title")?.textContent.trim() === "投诉类型统计");
+  const complaintRows = complaintCard?.querySelectorAll(".stat-row strong");
+  if (complaintRows?.length === 2) { complaintRows[0].textContent = "2个　66.67%"; complaintRows[1].textContent = "1个　33.33%"; }
+  const deviceLegend = charts[2]?.querySelector(".chart-legend");
+  if (deviceLegend) deviceLegend.innerHTML = '<span><i class="legend-dot" style="background:#d85b4c"></i>未处理</span><span><i class="legend-dot" style="background:#e47c2f"></i>处理中</span><span><i class="legend-dot" style="background:#e2a246"></i>已处理</span><span><i class="legend-dot" style="background:#e2a246"></i>完成率</span>';
+})();
+</script>
+<script>
+(() => {
+  const labels = {
+    today: Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, "0")}:00`),
+    week: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+    month: ["1日", "5日", "10日", "15日", "20日", "25日", "30日"],
+    year: Array.from({ length: 12 }, (_, i) => `${i + 1}月`)
+  };
+  const stateNames = ["待处理", "处理中", "待确认", "已完成", "已关闭"];
+  const colors = ["#5278e4", "#6bb6de", "#71c8d9", "#4f68d7", "#60b5a8"];
+  const series = {
+    repair: { today: [1, 2, 1, 0, 2, 1, 2, 1, 0, 1, 2, 1, 0, 1, 2, 1, 0, 1, 2, 1, 0, 1, 0, 1], week: [5, 8, 4, 7, 3, 2, 1], month: [8, 12, 9, 15, 10, 13, 7], year: [42, 48, 56, 62, 58, 64, 70, 66, 74, 80, 76, 84] },
+    complaint: { today: [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0], week: [1, 2, 0, 1, 2, 1, 1], month: [2, 4, 3, 5, 2, 4, 3], year: [18, 20, 24, 22, 28, 30, 26, 32, 35, 38, 40, 44] },
+    device: { today: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0], week: [3, 4, 2, 5, 3, 2, 1], month: [5, 8, 6, 9, 7, 10, 6], year: [20, 24, 28, 26, 32, 35, 30, 38, 42, 46, 44, 50] }
+  };
+  const chartCards = [...document.querySelectorAll(".home-card")].filter((card) => ["报修工单状态分析", "投诉工单状态分析", "设备异常工单状态分析"].includes(card.querySelector(".card-title")?.textContent.trim()));
+  const downsample = (list) => { const step = Math.max(1, Math.ceil(list.length / 8)); return list.map((value, index) => index % step === 0 || index === list.length - 1 ? value : ""); };
+  const tooltip = (card) => { let node = card.querySelector(".chart-tooltip"); if (!node) { node = document.createElement("div"); node.className = "chart-tooltip"; card.querySelector(".chart-bars").appendChild(node); } return node; };
+  const render = (period) => chartCards.forEach((card, chartIndex) => {
+    const type = chartIndex === 0 ? "repair" : chartIndex === 1 ? "complaint" : "device";
+    const points = labels[period];
+    const values = series[type][period];
+    const bars = card.querySelector(".chart-bars");
+    const caption = card.querySelector(".bar-caption");
+    if (!bars || !caption) return;
+    const legend = card.querySelector(".chart-legend");
+    if (legend && chartIndex === 0) legend.innerHTML = '<span><i class="legend-dot" style="background:#5278e4"></i>待处理</span><span><i class="legend-dot" style="background:#6bb6de"></i>处理中</span><span><i class="legend-dot" style="background:#71c8d9"></i>待确认</span><span><i class="legend-dot" style="background:#4f68d7"></i>已完成</span><span><i class="legend-dot" style="background:#60b5a8"></i>已关闭</span><span><i class="legend-dot" style="background:#e2a246"></i>完成率</span>';
+    bars.innerHTML = `<span class="axis-label axis-left">数量</span><span class="axis-label axis-right">完成率</span><span class="axis-tick tick-left top">${Math.max(...values, 2)}</span><span class="axis-tick tick-left bottom">0</span><span class="axis-tick tick-right top">100%</span><span class="axis-tick tick-right bottom">0%</span>`;
+    const visibleLabels = downsample(points);
+    caption.innerHTML = visibleLabels.map((label) => `<span>${label}</span>`).join("");
+    values.forEach((value, index) => {
+      const group = document.createElement("div"); group.className = "bar-group"; group.dataset.label = points[index];
+      const stacks = chartIndex === 0 ? [value * .42, value * .24, value * .14, value * .12, value * .08] : chartIndex === 1 ? [value * .6, value * .4] : [value * .5, value * .3, value * .2];
+      const stackColors = chartIndex === 0 ? colors : chartIndex === 1 ? ["#8265df", "#b05add"] : ["#d85b4c", "#e47c2f", "#e2a246"];
+      stacks.forEach((amount, stackIndex) => { const bar = document.createElement("i"); bar.className = "bar-stack"; bar.style.setProperty("--h", `${Math.max(5, Math.min(90, amount * 20))}%`); bar.style.setProperty("--c", stackColors[stackIndex]); group.appendChild(bar); });
+      group.addEventListener("mouseenter", () => { const names = chartIndex === 0 ? stateNames : chartIndex === 1 ? ["待确认", "已完成"] : ["未处理", "处理中", "已处理"]; const tip = tooltip(card); tip.innerHTML = `<strong>${points[index]}</strong>${names.map((name, i) => `<span><i style="background:${stackColors[i]}"></i>${name}<b>${Math.round(stacks[i])}</b></span>`).join("")}<span><i style="background:#e2a246"></i>完成率<b>${Math.min(100, 40 + value * 8)}%</b></span>`; tip.classList.add("show"); });
+      group.addEventListener("mouseleave", () => tooltip(card).classList.remove("show")); bars.appendChild(group);
+    });
+  });
+  document.querySelectorAll("[data-period]").forEach((button) => button.addEventListener("click", () => render(button.dataset.period)));
+  render("today");
+})();
+</script>
+<style>
+  .home-chart-final { display:grid; grid-template-columns:34px minmax(0,1fr) 42px; height:190px; }
+  .home-axis { position:relative; color:var(--text-secondary); font-size:11px; }
+  .home-axis span { position:absolute; white-space:nowrap; }
+  .home-axis .axis-name { top:0; }.home-axis .axis-top { top:25px; }.home-axis .axis-mid { top:82px; }.home-axis .axis-bottom { bottom:12px; }
+  .home-plot-viewport { min-width:0; overflow:hidden; position:relative; }
+  .home-plot-scroll { height:170px; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; }
+  .home-plot { position:relative; height:160px; min-width:100%; display:flex; align-items:end; gap:16px; padding:8px 12px 0; background:repeating-linear-gradient(to bottom,transparent 0,transparent 39px,#edf1f7 40px); border-bottom:1px solid var(--divider); }
+  .home-plot .bar-group { flex:0 0 30px; height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; gap:1px; cursor:pointer; }
+  .home-plot .bar-stack { flex:0 0 auto; width:20px; min-height:2px; border-radius:3px 3px 0 0; background:var(--c); height:var(--h); }
+  .home-line { position:absolute; inset:8px 12px 0; width:calc(100% - 24px); height:152px; pointer-events:none; overflow:visible; }
+  .home-xaxis { display:flex; height:20px; gap:16px; overflow:hidden; color:var(--text-secondary); font-size:11px; }
+  .home-xaxis span { flex:0 0 30px; text-align:center; white-space:nowrap; }
+  .home-chart-viewport { min-width:0; }
+  .home-hover-tip { display:none; position:fixed; z-index:20; min-width:150px; padding:10px 12px; background:#fff; border:1px solid #c5ccd6; border-radius:5px; box-shadow:0 4px 14px rgba(20,36,60,.16); color:var(--text-secondary); font-size:12px; pointer-events:none; }
+  .home-hover-tip.show { display:grid; gap:6px; }
+  .home-hover-tip strong { color:var(--text-title); font-size:14px; }
+  .home-hover-tip span { display:grid; grid-template-columns:8px 1fr auto; gap:6px; align-items:center; }
+  .home-hover-tip i { width:8px; height:8px; border-radius:50%; }
+</style>
+<script>
+(() => {
+  const labels={today:Array.from({length:24},(_,i)=>`${String(i).padStart(2,"0")}:00`),week:["周一","周二","周三","周四","周五","周六","周日"],month:["1日","5日","10日","15日","20日","25日","30日"],year:Array.from({length:12},(_,i)=>`${i+1}月`)};
+  const values={repair:{today:[1,2,1,0,2,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1,0,1,0,1],week:[5,8,4,7,3,2,1],month:[8,12,9,15,10,13,7],year:[42,48,56,62,58,64,70,66,74,80,76,84]},complaint:{today:[0,1,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0],week:[1,2,0,1,2,1,1],month:[2,4,3,5,2,4,3],year:[18,20,24,22,28,30,26,32,35,38,40,44]},device:{today:[1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0],week:[3,4,2,5,3,2,1],month:[5,8,6,9,7,10,6],year:[20,24,28,26,32,35,30,38,42,46,44,50]}};
+  const configs=[{name:"报修工单状态分析",type:"repair",colors:["#5278e4","#6bb6de","#71c8d9","#4f68d7","#60b5a8"],states:["待处理","处理中","待确认","已完成","已关闭"]},{name:"投诉工单状态分析",type:"complaint",colors:["#8265df","#b05add"],states:["待确认","已完成"]},{name:"设备异常工单状态分析",type:"device",colors:["#d85b4c","#e47c2f","#e2a246"],states:["未处理","处理中","已处理"]}];
+  const hoverTip=()=>{let node=document.querySelector(".home-hover-tip");if(!node){node=document.createElement("div");node.className="home-hover-tip";document.body.appendChild(node)}return node};
+  const draw=(period)=>configs.forEach((cfg)=>{const card=[...document.querySelectorAll(".home-card")].find(c=>c.querySelector(".card-title")?.textContent.trim()===cfg.name);if(!card)return;const chart=card.querySelector(".bar-chart");if(!chart)return;const points=labels[period], nums=values[cfg.type][period], max=Math.max(...nums,2);const stacks=(n)=>cfg.type==="repair"?[n*.42,n*.24,n*.14,n*.12,n*.08]:cfg.type==="complaint"?[n*.6,n*.4]:[n*.5,n*.3,n*.2];chart.innerHTML=`<div class="home-chart-final"><div class="home-axis"><span class="axis-name">数量</span><span class="axis-top">${max}</span><span class="axis-mid">${Math.ceil(max/2)}</span><span class="axis-bottom">0</span></div><div class="home-chart-viewport"><div class="home-plot-scroll"><div class="home-plot"></div></div><div class="home-xaxis"></div></div><div class="home-axis"><span class="axis-name">完成率</span><span class="axis-top">100%</span><span class="axis-mid">50%</span><span class="axis-bottom">0%</span></div></div>`;const plot=chart.querySelector(".home-plot"),xaxis=chart.querySelector(".home-xaxis"),tip=hoverTip();points.forEach((point,i)=>{const group=document.createElement("div");group.className="bar-group";group.dataset.label=point;const parts=stacks(nums[i]);parts.forEach((part,j)=>{const bar=document.createElement("i");bar.className="bar-stack";bar.style.setProperty("--h",`${Math.max(3,Math.min(90,part*20))}%`);bar.style.setProperty("--c",cfg.colors[j]);group.appendChild(bar)});group.addEventListener("mouseenter",(event)=>{tip.innerHTML=`<strong>${point}</strong>${cfg.states.map((state,j)=>`<span><i style="background:${cfg.colors[j]}"></i>${state}<b>${Math.round(parts[j])}</b></span>`).join("")}<span><i style="background:#e2a246"></i>完成率<b>${Math.min(100,40+nums[i]*8)}%</b></span>`;tip.classList.add("show");tip.style.left=`${event.clientX+12}px`;tip.style.top=`${event.clientY+12}px`});group.addEventListener("mousemove",(event)=>{tip.style.left=`${event.clientX+12}px`;tip.style.top=`${event.clientY+12}px`});group.addEventListener("mouseleave",()=>tip.classList.remove("show"));plot.appendChild(group);const label=document.createElement("span");label.textContent=period==="today"&&i%3!==0?"":point;xaxis.appendChild(label)});const line=document.createElementNS("http://www.w3.org/2000/svg","svg");line.classList.add("home-line");line.setAttribute("viewBox",`0 0 ${Math.max(320,points.length*46)} 152`);line.style.width=`${Math.max(320,points.length*46-24)}px`;const pts=nums.map((n,i)=>`${i*46+15},${145-Math.min(125,(40+n*8)*1.25)}`).join(" ");line.innerHTML=`<polyline points="${pts}" fill="none" stroke="#e2a246" stroke-width="2.5"/>`;plot.appendChild(line);});
+  document.querySelectorAll("[data-period]").forEach(b=>b.addEventListener("click",()=>setTimeout(()=>draw(b.dataset.period),0)));draw("today");
+})();
+</script>
+<script>
+(() => {
+  const sizePlots = () => document.querySelectorAll(".home-plot").forEach((plot) => { const compact = plot.children.length <= 12; const width = compact ? plot.parentElement.clientWidth : Math.max(plot.parentElement.clientWidth, plot.children.length * 46); plot.style.width = `${width}px`; plot.querySelectorAll(".bar-group").forEach((group) => { group.style.flex = compact ? "1 1 0" : "0 0 30px"; }); const line = plot.querySelector(".home-line"); if (line) line.style.width = `${Math.max(100, width - 24)}px`; const axis = plot.closest(".home-chart-final")?.querySelector(".home-xaxis"); if (axis) { axis.style.width = `${width}px`; axis.querySelectorAll("span").forEach((item) => item.style.flex = compact ? "1 1 0" : "0 0 30px"); } });
+  sizePlots();
+  document.querySelectorAll("[data-period]").forEach((button) => button.addEventListener("click", () => setTimeout(sizePlots, 30)));
+})();
+</script>
+</body></html>

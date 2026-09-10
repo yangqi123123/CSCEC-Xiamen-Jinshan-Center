@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中建四局智能运营管理系统（CFIBMS）</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="viewport">
+    <main class="screen" id="screenShell" data-page="overview">
+      <header class="hud-header">
+        <div class="project-mark">
+          <div class="project-name">中建厦门金山财富中心</div>
+          <div class="project-meta"><span id="clockTime">14:29:28</span><span><i class="fa-solid fa-cloud" aria-hidden="true"></i>25~32℃</span><span id="clockDate">星期四</span><span id="currentDate">2026.08.27</span></div>
+        </div>
+        <div class="system-title">中建四局智能运营管理系统（CFIBMS）</div>
+        <div class="header-tools">
+          <div class="company"><img class="company-logo" src="assets/cscec-logo.png" alt="中国建筑标志"><span>中国建筑第四工程局有限公司<small>CHINA CONSTRUCTION FOURTH ENGINEERING DIVISION CORP. LTD</small></span></div>
+          
+          <button class="header-icon" type="button" aria-label="用户中心"><i class="fa-regular fa-user"></i></button>
+          <button class="header-icon" type="button" aria-label="消息提醒"><i class="fa-regular fa-bell"></i></button>
+          <button class="header-icon" type="button" aria-label="退出系统"><i class="fa-solid fa-power-off"></i></button>
+        </div>
+      </header>
+      <nav class="module-nav" aria-label="系统模块导航">
+        <button class="active" type="button" aria-current="page">总览</button>
+        <button type="button">机电系统</button>
+        <button type="button">弱电系统</button>
+        <button type="button">能源管理</button>
+        <button type="button">运营管理</button>
+      </nav>
+      <section class="workspace ">
+        <aside class="rail left-rail" aria-label="建筑运营信息">
+          <section class="info-panel overview-panel">
+            <h2 class="panel-title">建筑概况<span></span></h2>
+            <div class="panel-inner">
+              <div class="overview-row"><span>建筑名称</span><b>中建厦门金山财富中心</b></div>
+              <div class="overview-row"><span>建筑规模</span><b>104402m² / 地上36层、地下3层</b></div>
+              <div class="overview-row"><span>开工日期</span><b>2022年4月17日</b><span>竣工日期</span><b>2024年9月29日</b></div>
+              <div class="overview-row"><span>项目定位</span><b>建筑科技范 创新总部科研</b></div>
+              <div class="overview-row"><span>建设单位</span><b>厦门中建东北设计院有限公司</b></div>
+              <div class="overview-row"><span>设计单位</span><b>中建东北设计研究院有限公司</b></div>
+              <div class="overview-row"><span>施工单位</span><b>中国建筑第四工程局有限公司</b></div>
+            </div>
+          </section>
+
+          <section class="info-panel awards-panel">
+            <h2 class="panel-title">荣誉展示<span></span></h2>
+            <div class="award-grid">
+              <div class="award"><span class="award-badge"><i class="fa-solid fa-star"></i></span><span>绿色三星</span></div>
+              <div class="award"><span class="award-badge"><i class="fa-solid fa-star"></i></span><span>近零能耗建筑</span></div>
+              <div class="award"><span class="award-badge"><i class="fa-solid fa-star"></i></span><span>国家装配式建筑</span></div>
+              <div class="award certificate certificate-carousel" aria-label="荣誉证书轮播">
+                <div class="certificate-stage" tabindex="0">
+                  <div class="certificate-slide active"><img src="assets/carbon-neutral-certificate.png" alt="金级碳中和建筑标识证书"></div>
+                  <div class="certificate-slide certificate-generated"><div><strong>绿色建筑</strong>三星级<br>示范证书</div></div>
+                  <div class="certificate-slide certificate-generated"><div><strong>WELL</strong>健康建筑<br>认证证书</div></div>
+                  <div class="certificate-hover"><button class="preview-button" type="button" aria-label="预览荣誉证书">预览</button></div>
+                </div>
+                <div class="certificate-carousel-nav" role="tablist" aria-label="荣誉证书页码"><button class="carousel-dot active" type="button" role="tab" aria-selected="true" aria-label="第1张证书"></button><button class="carousel-dot" type="button" role="tab" aria-selected="false" aria-label="第2张证书"></button><button class="carousel-dot" type="button" role="tab" aria-selected="false" aria-label="第3张证书"></button></div>
+              </div>
+              <div class="award"><span class="award-badge"><i class="fa-solid fa-star"></i></span><span>全领域中和</span></div>
+              <div class="award"><span class="award-badge"><i class="fa-solid fa-star"></i></span><span>LEED金级</span></div>
+              <div class="award"><span class="award-badge"><i class="fa-solid fa-star"></i></span><span>WELL认证</span></div>
+            </div>
+          </section>
+
+          <section class="info-panel people-panel">
+            <h2 class="panel-title">人员统计<span></span></h2>
+            <div class="people-main">
+              <div class="people-side"><label>办公人员</label><strong>683</strong></div>
+              <div class="people-ring"><div><strong>683</strong><small>人员总数</small></div></div>
+              <div class="people-side"><label>访客</label><strong>0</strong></div>
+            </div>
+            <div class="people-caption">人员分区</div>
+            <div class="people-zones"><div class="zone"><label>低中区</label><strong>511</strong></div><div class="zone"><label>高区</label><strong>172</strong></div></div>
+          </section>
+
+          <section class="info-panel vehicle-panel">
+            <h2 class="panel-title">车辆统计<span></span></h2>
+            <div class="parking-total"><i class="fa-solid fa-car-side" aria-hidden="true"></i><span>剩余车位 / 车位总数</span><strong><b>199</b>/199</strong></div>
+            <div class="parking-levels"><div class="parking-total-count"><span>车位总数</span><b>199</b></div><div class="parking-level"><span>B1</span><i></i><b>54<small>/54</small></b></div><div class="parking-level"><span>B2</span><i></i><b>145<small>/145</small></b></div></div>
+            <div class="vehicle-stats"><div class="vehicle-stat"><span>普通车位</span><strong>22</strong><em>使用中 <b>0</b></em><em>空余 <b>22</b></em></div></div>
+          </section>
+          <section class="info-panel mep-panel parking-panel">
+            <h2 class="panel-title">停车概览<span></span></h2>
+            <div class="parking-body"><div class="parking-metric-grid"><div class="parking-metric"><i class="fa-solid fa-right-to-bracket"></i><span>西侧入场数<b>120</b></span></div><div class="parking-metric"><i class="fa-solid fa-right-from-bracket"></i><span>西侧离场数<b>135</b></span></div><div class="parking-metric"><i class="fa-solid fa-right-to-bracket"></i><span>南侧入场数<b>95</b></span></div><div class="parking-metric"><i class="fa-solid fa-right-from-bracket"></i><span>南侧离场数<b>120</b></span></div><div class="parking-metric"><i class="fa-solid fa-percent"></i><span>车位占用率<b>2%</b></span></div></div><div class="parking-section-title">剩余车位</div><div class="parking-bars"><div class="parking-bar"><span>B1</span><div class="parking-bar-track"><span style="width:38%"></span></div><b>54</b></div><div class="parking-bar"><span>B2</span><div class="parking-bar-track"><span style="width:92%"></span></div><b>145</b></div><div class="parking-bar"><span>B3</span><div class="parking-bar-track"><span style="width:86%"></span></div><b>134</b></div></div></div>
+          </section>
+          <section class="info-panel mep-panel parking-panel"><h2 class="panel-title">AGV车位<span></span></h2><div class="parking-body"><div class="parking-card-grid"><div class="parking-card"><div>车位总数<b>22</b></div><div class="accent">剩余车位<b>22</b></div></div></div></div></section>
+          <section class="info-panel mep-panel parking-panel"><h2 class="panel-title">机械车位<span></span></h2><div class="parking-body"><div class="parking-card-grid"><div class="parking-card"><div>机械车位总数<b>43</b></div><div class="accent">使用中<b>2</b></div></div><div class="parking-card"><div>空闲<b>41</b></div><div class="accent">已占用<b>0</b></div></div></div></div></section>
+        </aside>
+<section class="building-scene image-mode" aria-label="中建厦门金山财富中心建筑效果图">
+          <img class="building-reference" src="assets/public-building-centered.png" alt="中建厦门金山财富中心建筑效果图">
+          <nav class="operation-dock" id="operationDock" aria-label="运营管理子模块"><button class="active" type="button" data-operation="asset" aria-pressed="true">资产管理</button><button type="button" data-operation="management" aria-pressed="false">运营管理</button></nav>
+          <nav class="system-subnav" id="systemSubnav" aria-label="当前系统子系统"></nav>
+          <nav class="system-dock" id="systemDock" aria-label="机电主系统">
+            <button class="active" type="button" data-system="overview">系统总览</button><button type="button" data-system="hvac">暖通空调</button><button type="button" data-system="electric">电气系统</button><button type="button" data-system="water">给排水系统</button><button type="button" data-system="fire">消防系统</button><button type="button" data-system="elevator">电梯系统</button><button type="button" data-system="gas">燃气系统</button><button type="button" data-system="solar">光伏系统</button><button type="button" data-system="ventilation">自然通风</button>
+          </nav>
+          <nav class="weak-dock" id="weakDock" aria-label="弱电子系统"><button class="active" type="button" data-system="weak-overview">系统总览</button><button type="button" data-system="meeting">会议办公</button><button type="button" data-system="parking">智慧停车</button><button type="button" data-system="security">综合安防</button><button type="button" data-system="network">信息网络</button></nav>
+          <div class="floor-control"><button class="floor-button" type="button" aria-label="打开楼层选择" aria-expanded="false"><i class="fa-solid fa-building" aria-hidden="true"></i></button><div class="floor-menu" role="listbox" aria-label="楼层列表"><button type="button" data-floor="37F">37F</button><button type="button" data-floor="36F">36F</button><button type="button" data-floor="35F">35F</button><button type="button" data-floor="34F">34F</button><button type="button" data-floor="33F">33F</button><button type="button" data-floor="32F">32F</button><button type="button" data-floor="31F">31F</button><button type="button" data-floor="30F">30F</button><button type="button" data-floor="29F">29F</button><button type="button" data-floor="28F">28F</button><button type="button" data-floor="27F">27F</button><button type="button" data-floor="26F">26F</button><button type="button" data-floor="25F">25F</button><button type="button" data-floor="24F">24F</button><button type="button" data-floor="23F">23F</button><button type="button" data-floor="22F">22F</button><button type="button" data-floor="21F">21F</button><button type="button" data-floor="20F">20F</button><button type="button" data-floor="19F">19F</button><button type="button" data-floor="18F">18F</button><button type="button" data-floor="17F">17F</button><button type="button" data-floor="16F">16F</button><button class="active" type="button" data-floor="15F">15F</button><button type="button" data-floor="14F">14F</button><button type="button" data-floor="13F">13F</button><button type="button" data-floor="12F">12F</button><button type="button" data-floor="11F">11F</button><button type="button" data-floor="10F">10F</button><button type="button" data-floor="9F">9F</button><button type="button" data-floor="8F">8F</button><button type="button" data-floor="7F">7F</button><button type="button" data-floor="6F">6F</button><button type="button" data-floor="5F">5F</button><button type="button" data-floor="4F">4F</button><button type="button" data-floor="3F">3F</button><button type="button" data-floor="2F">2F</button><button type="button" data-floor="1F">1F</button><button type="button" data-floor="B1">B1</button></div></div>
+          <div class="floor-plan"><div class="floor-plan-stage"><img src="assets/floor-plan-15f.png" alt="15F楼层平面图"><button class="device-point" data-category="hvac" type="button" style="left:26%;top:27%" data-device="西侧温控面板" data-code="30F-WK-32-X07"><i class="fa-solid fa-temperature-half"></i><em>西侧温控面板</em></button><button class="device-point" data-category="hvac" type="button" style="left:49%;top:24%" data-device="北侧温控面板" data-code="30F-WK-18-X02"><i class="fa-solid fa-temperature-half"></i><em>北侧温控面板</em></button><button class="device-point" data-category="hvac" type="button" style="left:73%;top:27%" data-device="东侧温控面板" data-code="30F-WK-08-X03"><i class="fa-solid fa-temperature-half"></i><em>东侧温控面板</em></button><button class="device-point" data-category="smart" type="button" style="left:34%;top:51%" data-device="走廊空气传感器" data-code="30F-CG-05-X01"><i class="fa-solid fa-wind"></i><em>走廊空气传感器</em></button><button class="device-point" data-category="hvac" type="button" style="left:50%;top:48%" data-device="电梯厅温控面板" data-code="30F-WK-01-X09"><i class="fa-solid fa-temperature-half"></i><em>电梯厅温控面板</em></button><button class="device-point" data-category="smart" type="button" style="left:66%;top:52%" data-device="设备间控制器" data-code="30F-KZ-12-X04"><i class="fa-solid fa-microchip"></i><em>设备间控制器</em></button><button class="device-point" data-category="hvac" type="button" style="left:28%;top:75%" data-device="南侧温控面板" data-code="30F-WK-26-X05"><i class="fa-solid fa-temperature-half"></i><em>南侧温控面板</em></button><button class="device-point" data-category="smart" type="button" style="left:72%;top:75%" data-device="办公室温湿度传感器" data-code="30F-CG-21-X06"><i class="fa-solid fa-droplet"></i><em>办公室温湿度传感器</em></button></div><aside class="floor-legend" aria-label="设备图例"><div><i>●</i>室内环境传感器</div><div><i>▣</i>门禁读卡器</div><div><i>◉</i>半球摄像头</div><div><i>▤</i>紧急按钮</div><div><i>≋</i>热量表</div><div><i>♧</i>风阀</div><div><i>!</i>警报</div><div><i>↗</i>手报</div><div><i>▥</i>输入输出模块</div><div><i>◎</i>普通计量分水表</div><div><i>▣</i>控制面板</div><div><i>≈</i>排风机</div></aside><div class="floor-filters" role="group" aria-label="设备显示筛选"><label><input type="checkbox" data-filter="all" checked>全选</label><label><input type="checkbox" data-filter="smart" checked>智能化系统</label><label><input type="checkbox" data-filter="fire" checked>火灾消防系统</label><label><input type="checkbox" data-filter="water" checked>给排水系统</label><label><input type="checkbox" data-filter="hvac" checked>空调系统</label><label><input type="checkbox" data-filter="lighting" checked>智能照明系统</label><label><input type="checkbox" data-filter="power" checked>供配电系统</label></div><span class="floor-plan-label">15F 楼层平面图</span></div>
+          <div class="room-overlay"><span class="room-label" style="left:27%;top:25%">办公区01</span><span class="room-label" style="left:50%;top:25%">办公区02</span><span class="room-label" style="left:73%;top:25%">办公区03</span><span class="room-label" style="left:26%;top:50%">办公区05</span><span class="room-label" style="left:50%;top:49%">电梯厅</span><span class="room-label" style="left:73%;top:50%">办公区12</span><span class="room-label" style="left:28%;top:76%">办公区07</span><span class="room-label" style="left:72%;top:76%">办公区10</span></div>
+          <div class="floor-options"><label><input type="checkbox" id="roomInfoToggle">房间信息</label><label><input type="checkbox" id="devicePointToggle" checked>设备点位</label></div>
+          <div class="scene-label">BUILDING DIGITAL TWIN · LIVE SCENE</div>
+          <div class="scene-horizon"></div><div class="scene-river"></div><div class="ground"></div>
+          <div class="ghost one"></div><div class="ghost two"></div><div class="ghost three"></div><div class="ghost four"></div><div class="horizon-trees"></div>
+          <div class="road road-a"></div><div class="road road-b"></div>
+          <div class="main-building">
+            <div class="tower"><div class="roof"></div><div class="sign">中建科创</div><div class="tower-side"></div></div>
+            <div class="podium"><div class="roof-courtyard"></div></div>
+          </div>
+          <div class="scene-tree tree-1"></div><div class="scene-tree tree-2"></div><div class="scene-tree tree-3"></div><div class="scene-tree tree-4"></div><div class="scene-tree tree-5"></div>
+          <div class="scene-glow" aria-hidden="true"></div><div class="scene-scan" aria-hidden="true"></div><div class="bottom-fade" aria-hidden="true"></div>
+          <button class="scene-control scene-control-video left" type="button" aria-label="视频播放" title="视频播放" data-tooltip="视频播放" aria-pressed="false"><i class="fa-solid fa-clapperboard"></i><span class="scene-control-tooltip">视频播放</span></button>
+        </section>
+<aside class="rail right-rail" aria-label="能源环境信息"><section class="info-panel energy-panel">
+            <h2 class="panel-title">能源管理<span></span></h2>
+            <div class="gauge-grid">
+              <div class="gauge"><div class="gauge-ring" style="--gauge-color:#55e5e2"><strong>3619531</strong><small>kW.h</small></div><label>电耗</label><div class="gauge-meta"><span>月度</span><b>36.2万</b><span>年度</span><b>239.89万</b></div></div>
+              <div class="gauge"><div class="gauge-ring" style="--gauge-color:#3ca6e9"><strong>2436</strong><small>t</small></div><label>水耗</label><div class="gauge-meta"><span>月度</span><b>2436</b><span>年度</span><b>1.86万</b></div></div>
+              <div class="gauge"><div class="gauge-ring" style="--gauge-color:#f2c837"><strong>4143861</strong><small>kW</small></div><label>冷量</label><div class="gauge-meta"><span>月度</span><b>414386</b><span>年度</span><b>260.73万</b></div></div>
+              <div class="gauge"><div class="gauge-ring" style="--gauge-color:#ef725c"><strong>3166.70</strong><small>kW.h</small></div><label>光伏</label><div class="gauge-meta"><span>月度</span><b>3166.70</b><span>年度</span><b>2.26万</b></div></div>
+            </div>
+          </section>
+
+          <section class="info-panel environment-panel">
+            <h2 class="panel-title">环境指标<span></span></h2>
+            <div class="env-tabs overview-env-tabs" role="tablist" aria-label="环境区域"><button class="active" type="button" role="tab" aria-selected="true">自持</button><button type="button" role="tab" aria-selected="false">租区</button></div>
+            <div class="environment-content">
+              <div class="environment-core" aria-label="环境舒适度"><span class="core-orbit" aria-hidden="true"></span><span class="core-orb"><i class="fa-solid fa-seedling" aria-hidden="true"></i></span><span class="core-platform" aria-hidden="true"></span><span class="core-label">环境舒适度</span></div>
+              <div class="environment-metric left metric-1"><strong>20.9</strong><span>平均温度(℃)</span></div><div class="environment-metric right metric-2"><strong>69.1</strong><span>平均湿度(%RH)</span></div>
+              <div class="environment-metric left metric-3"><strong>576.0</strong><span>CO₂(ppm)</span></div><div class="environment-metric right metric-4"><strong>27.0</strong><span>PM2.5(μg/m³)</span></div>
+              <div class="environment-metric left metric-5"><strong>0.032</strong><span>甲醛(mg/m³)</span></div><div class="environment-metric right metric-6"><strong>0.1</strong><span>TVOC(mg/m³)</span></div>
+            </div>
+          </section>
+          <section class="info-panel mep-alarm overview-alarm-panel">
+            <h2 class="panel-title">设备报警<span></span></h2>
+            <div class="mep-alarm-tabs" role="tablist" aria-label="设备报警统计周期"><button class="active" type="button" role="tab" aria-selected="true">今日</button><button type="button" role="tab" aria-selected="false">本周</button><button type="button" role="tab" aria-selected="false">本月</button><button type="button" role="tab" aria-selected="false">本年</button></div>
+            <div class="mep-alarm-summary"><div class="mep-alarm-count"><span>7</span><small>报警总数</small></div><div class="mep-alarm-status"><span>未处理 <b>7</b></span><span>已处理 <b>0</b></span></div></div>
+            <div class="mep-alarm-title">报警消息</div>
+            <div class="mep-alarm-item"><strong>告警</strong><span>【设备离线】12F / 12F强电井</span><b>未处理</b><br><span>光伏并网逆变器100kW-逆变器故障　2026-08-28 08:02:20</span></div>
+            <div class="mep-alarm-item"><strong>告警</strong><span>【设备离线】12F / 12F强电井</span><b>未处理</b><br><span>光伏并网逆变器100kW-逆变器故障　2026-08-28 07:46:46</span></div>
+            <div class="mep-alarm-item"><strong>告警</strong><span>【设备离线】地下B2设备间</span><b>未处理</b><br><span>给排水泵组通讯异常　2026-08-28 07:30:12</span></div>
+          </section></aside>
+      </section>
+    </main>
+    <div class="preview-modal" id="certificateModal" role="dialog" aria-modal="true" aria-labelledby="certificateModalTitle">
+      <button class="preview-close" id="certificateClose" type="button" aria-label="关闭证书预览">×</button>
+      <span id="certificateModalTitle" hidden>荣誉证书预览</span>
+      <img id="certificatePreview" src="assets/carbon-neutral-certificate.png" alt="荣誉证书大图预览">
+    </div>
+    <div class="device-modal" id="deviceModal" role="dialog" aria-modal="true" aria-labelledby="deviceDialogTitle">
+      <div class="device-dialog">
+        <button class="device-dialog-close" id="deviceDialogClose" type="button" aria-label="关闭设备详情">×</button>
+        <div class="device-dialog-head" id="deviceDialogTitle">设备详情-30楼办公区西侧温控面板</div>
+        <div class="device-tabs" role="tablist" aria-label="设备详情分类"><button class="active" type="button" role="tab" data-pane="ledger">设备台账</button><button type="button" role="tab" data-pane="monitor">设备监测</button><button type="button" role="tab" data-pane="alarm">设备报警</button><button type="button" role="tab" data-pane="maintain">设备维保</button><button type="button" role="tab" data-pane="inspect">设备巡检</button><button type="button" role="tab" data-pane="downstream">下游设备</button><button type="button" role="tab" data-pane="qr">设备二维码</button></div>
+        <section class="device-pane active" data-pane="ledger"><h3 class="device-section-title">系统分类</h3><div class="device-fields two"><div class="device-field"><label>所属系统</label><strong>空调系统/空调通风系统/控制面板</strong></div><div class="device-field"><label>品牌型号</label><strong>RTC-626</strong></div></div><h3 class="device-section-title">设备基本信息</h3><div class="device-fields"><div class="device-field"><label>设备名称</label><strong data-device-name>30楼办公区西侧温控面板</strong></div><div class="device-field"><label>设备编号</label><strong data-device-code>30F-WK-32-X07</strong></div><div class="device-field"><label>供货商</label><strong>艾科</strong></div><div class="device-field"><label>供货商联系方式</label><strong>13928325240</strong></div><div class="device-field"><label>出厂日期</label><strong>2024-07-27</strong></div><div class="device-field"><label>安装日期</label><strong>2024-10-24</strong></div><div class="device-field"><label>所属房间</label><strong>30F办公区</strong></div><div class="device-field"><label>安装位置</label><strong data-device-position>30楼办公区西侧温控面板-7</strong></div><div class="device-field"><label>设备编码</label><strong>001_KT04KTTF15_2022</strong></div></div></section>
+<section class="device-pane" data-pane="monitor"><div class="monitor-controls"><div class="device-field monitor-power"><label>开关控制</label><div class="power-buttons"><button class="active" type="button">开启</button><button type="button">关闭</button></div></div><div class="device-field monitor-speed"><label>风速模式</label><div class="speed-buttons"><button class="active" type="button">自动</button><button type="button">低速</button><button type="button">中速</button><button type="button">高速</button></div></div><div class="device-field monitor-reading"><label>室内温度<time>2026-09-09 16:04:53</time></label><strong>26℃</strong></div><div class="device-field monitor-reading"><label>室内湿度<time>2026-09-09 16:04:53</time></label><strong>48.50%RH</strong></div></div></section>
+        <section class="device-pane" data-pane="alarm"><h3 class="device-section-title">设备报警记录</h3><div class="alarm-record"><time>2025-10-10 17:24:07</time><div><strong>【设备报警】</strong> 设备离线</div></div><div class="alarm-record"><time>2025-10-10 17:24:06</time><div><strong>【设备报警】</strong> 温控面板设备离线告警</div></div><div class="alarm-record"><time>2025-10-10 17:23:44</time><div><strong>【设备报警】</strong> 设备离线</div></div></section>
+        <section class="device-pane" data-pane="maintain"><div class="empty-table-head"><span>维保名称</span><span>执行人</span><span>负责部门</span><span>开始时间</span><span>完成时间</span><span>执行结果</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
+        <section class="device-pane" data-pane="inspect"><div class="empty-table-head"><span>巡检名称</span><span>执行人</span><span>负责部门</span><span>开始时间</span><span>完成时间</span><span>执行结果</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
+        <section class="device-pane" data-pane="downstream"><div class="empty-table-head" style="grid-template-columns:repeat(5,1fr)"><span>设备名称</span><span>设备编码</span><span>所属房间</span><span>安装位置</span><span>是否智能化</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
+        <section class="device-pane" data-pane="qr"><div class="device-qr" aria-label="设备二维码"></div><div class="device-qr-label"><span data-device-name>30楼办公区西侧温控面板</span>（<span data-device-code>30F-WK-32-X07</span>）</div></section>
+      </div>
+    </div>
+  </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

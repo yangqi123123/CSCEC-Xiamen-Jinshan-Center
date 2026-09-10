@@ -1,0 +1,51 @@
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 720px; font-family: "Microsoft YaHei", sans-serif; color: #50565d; background: #f5f7fc; }
+  .shell { display: grid; grid-template-columns: 190px 1fr; min-height: 720px; }
+  .sidebar { background: #fff; border-right: 1px solid #edf1f7; }
+  .brand { height: 58px; padding: 0 16px; display: flex; align-items: center; color: #135afa; font-weight: 700; border-bottom: 1px solid #edf1f7; }
+  .nav { padding: 16px 0; }
+  .nav div { height: 40px; padding: 0 20px; display: flex; align-items: center; gap: 10px; }
+  .nav .active { color: #135afa; background: #eaf0ff; border-right: 4px solid #135afa; }
+  .nav .child { padding-left: 50px; color: #86909c; }
+  .nav .child.active { color: #135afa; font-weight: 600; }
+  .workspace { min-width: 0; }
+  .header { height: 58px; padding: 0 24px; background: #fff; border-bottom: 1px solid #edf1f7; display: flex; align-items: center; justify-content: space-between; }
+  .crumb strong { color: #1a1c1f; }
+  .avatar { width: 28px; height: 28px; display: grid; place-items: center; color: #fff; background: #135afa; border-radius: 50%; }
+  .main { padding: 16px 24px; }
+  .filters, .list { background: #fff; border-radius: 4px; }
+  .filters { padding: 16px 24px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 12px; align-items: end; }
+  label { display: grid; gap: 8px; font-size: 13px; }
+  input, select { height: 32px; border: 1px solid #d8dee9; border-radius: 2px; padding: 0 10px; background: #fff; color: #86909c; }
+  button { height: 32px; border: 1px solid #d8dee9; border-radius: 2px; padding: 0 16px; background: #fff; color: #50565d; }
+  .primary { color: #fff; border-color: #135afa; background: #135afa; }
+  .list { margin-top: 16px; overflow: hidden; }
+  .toolbar { height: 56px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #edf1f7; }
+  .toolbar strong { color: #1a1c1f; font-size: 16px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { height: 48px; padding: 0 16px; border-bottom: 1px solid #edf1f7; text-align: left; white-space: nowrap; font-size: 13px; }
+  th { color: #50565d; background: #f3f6ff; }
+  td a { margin-right: 16px; color: #135afa; }
+  .mask { position: fixed; inset: 0; background: rgba(26, 28, 31, .42); }
+  .drawer { position: fixed; top: 0; right: 0; width: 68%; min-width: 700px; height: 100vh; display: flex; flex-direction: column; background: #fff; box-shadow: -8px 0 24px rgba(26, 28, 31, .12); }
+  .drawer-head { height: 56px; padding: 0 24px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid #edf1f7; color: #1a1c1f; }
+  .drawer-head span { font-size: 20px; color: #86909c; }
+  .steps { padding: 24px; display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid #edf1f7; }
+  .step { position: relative; display: flex; align-items: center; gap: 10px; color: #86909c; }
+  .step:not(:last-child)::after { content: ">"; position: absolute; right: 20px; color: #c9cdd4; }
+  .step b { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid #c9cdd4; border-radius: 50%; font-weight: 400; }
+  .step.active { color: #1a1c1f; font-weight: 600; }
+  .step.active b { color: #fff; border-color: #2490ff; background: #2490ff; }
+  .drawer-body { flex: 1; padding: 32px 56px; }
+  .form-row { display: grid; grid-template-columns: 112px 1fr; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .form-row > span { text-align: right; color: #50565d; }
+  .form-row > span::before { content: "*"; color: #f53f57; margin-right: 4px; }
+  .notice { margin-bottom: 24px; padding: 8px 12px; border: 1px solid #f7ba1e; color: #b98308; background: #fffbe8; }
+  .drawer-foot { height: 64px; padding: 16px 24px; display: flex; justify-content: flex-end; gap: 8px; border-top: 1px solid #edf1f7; }
+</style>
+<div class="shell">
+  <aside class="sidebar"><div class="brand">智能运营管理系统</div><nav class="nav"><div>⌂　工作台</div><div>▣　项目管理</div><div>▱　设备管理</div><div class="active">◈　智能监测</div><div class="child">停车记录</div><div class="child">人行通行记录</div><div class="child">视频监控</div><div class="active">♢　报警中心</div><div class="child active">报警规则</div></nav></aside>
+  <section class="workspace"><header class="header"><span class="crumb">报警中心 / <strong>报警规则</strong></span><span class="avatar">管</span></header><main class="main"><div class="filters"><label>规则名称<input placeholder="请输入规则名称"></label><label>报警类型<select><option>请选择</option></select></label><label>报警等级<select><option>请选择</option></select></label><label>启用状态<select><option>请选择</option></select></label><button class="primary">搜索</button></div><section class="list"><div class="toolbar"><strong>报警规则列表</strong><button class="primary">＋ 新增</button></div><table><thead><tr><th>序号</th><th>报警规则名称</th><th>报警类型</th><th>报警等级</th><th>关联设备</th><th>启用状态</th><th>操作</th></tr></thead><tbody><tr><td>1</td><td>配电室设备离线</td><td>设备离线</td><td>告警</td><td>配电室网关</td><td>启用</td><td><a>详情</a><a>编辑</a><a>删除</a></td></tr><tr><td>2</td><td>冷水机组高温</td><td>设备属性</td><td>预警</td><td>冷水机组-01</td><td>启用</td><td><a>详情</a><a>编辑</a><a>删除</a></td></tr></tbody></table></section></main></section>
+</div>
+<div class="mask"></div><aside class="drawer"><header class="drawer-head"><span>×</span><strong>新增报警规则</strong></header><div class="steps"><div class="step active"><b>1</b>输入基本信息</div><div class="step"><b>2</b>触发条件</div><div class="step"><b>3</b>过滤规则</div><div class="step"><b>4</b>保存预览</div></div><main class="drawer-body"><div class="form-row"><span>规则名称</span><input placeholder="请输入规则名称"></div><div class="form-row"><span>报警类型</span><select><option>设备报警 / 设备属性</option></select></div><div class="form-row"><span>报警等级</span><select><option>请选择报警等级</option></select></div><div class="form-row"><span>规则说明</span><input placeholder="请输入规则说明"></div><div class="notice">提示：报警规则通过四步完成配置，下一步可设置触发条件、过滤方式和保存预览。</div></main><footer class="drawer-foot"><button>取消</button><button class="primary">下一步</button></footer></aside>
