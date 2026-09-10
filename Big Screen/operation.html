@@ -87,12 +87,27 @@
         <section class="device-pane" data-pane="alarm"><h3 class="device-section-title">设备报警记录</h3><div class="alarm-record"><time>2025-10-10 17:24:07</time><div><strong>【设备报警】</strong> 设备离线</div></div><div class="alarm-record"><time>2025-10-10 17:24:06</time><div><strong>【设备报警】</strong> 温控面板设备离线告警</div></div><div class="alarm-record"><time>2025-10-10 17:23:44</time><div><strong>【设备报警】</strong> 设备离线</div></div></section>
         <section class="device-pane" data-pane="maintain"><div class="empty-table-head"><span>维保名称</span><span>执行人</span><span>负责部门</span><span>开始时间</span><span>完成时间</span><span>执行结果</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
         <section class="device-pane" data-pane="inspect"><div class="empty-table-head"><span>巡检名称</span><span>执行人</span><span>负责部门</span><span>开始时间</span><span>完成时间</span><span>执行结果</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
-        <section class="device-pane" data-pane="downstream"><div class="empty-table-head" style="grid-template-columns:repeat(5,1fr)"><span>设备名称</span><span>设备编码</span><span>所属房间</span><span>安装位置</span><span>是否智能化</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
+        <section class="device-pane" data-pane="downstream"><div class="empty-table-head downstream-table-head"><span>设备名称</span><span>设备编码</span><span>所属房源</span><span>安装位置</span><span>是否智能化</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
         <section class="device-pane" data-pane="qr"><div class="device-qr" aria-label="设备二维码"></div><div class="device-qr-label"><span data-device-name>30楼办公区西侧温控面板</span>（<span data-device-code>30F-WK-32-X07</span>）</div></section>
       </div>
     </div>
   </div>
   </div>
+  <template id="requirementDocument">
+    <section class="requirement-section" data-requirement-section><h3>需求说明</h3><div class="requirement-section-body"><p>运营管理按资产管理和运营管理两个子模块展示资产、维保、租赁、报事报修、工单、投诉建议及故障报警数据，并支持列表详情下钻。</p></div></section>
+    <section class="requirement-section" data-requirement-section><h3>操作入口</h3><div class="requirement-section-body"><p>可视化大屏 -&gt; 运营管理</p></div></section>
+    <section class="requirement-section" data-requirement-section><h3>交互动作</h3><div class="requirement-section-body"><ol><li><strong>子模块切换：</strong>点击资产管理或运营管理切换两组看板。</li><li><strong>资产管理：</strong>切换维保计划本月/本年，点击固定资产、可移动资产“更多”打开资产列表；点击故障报警消息查看报警详情。</li><li><strong>运营管理：</strong>切换租赁楼栋筛选，查看租赁统计和楼层明细；切换报事报修、投诉建议统计周期，点击工单/反馈查看详情。</li><li><strong>详情操作：</strong>资产列表支持编码、名称查询；弹窗支持重置、查询、关闭、遮罩关闭和滚动。</li></ol></div></section>
+    <section class="requirement-section" data-requirement-section><h3>数据来源</h3><div class="requirement-section-body requirement-table-wrap">
+      <h4>资产总量</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>资产总值</td><td>后台-资产管理-资产台账，按资产原值汇总。</td></tr><tr><td>固定资产</td><td>后台-资产管理-资产台账中资产类型为固定资产的记录。</td></tr><tr><td>可移动资产</td><td>后台-资产管理-资产台账中资产类型为可移动资产的记录。</td></tr><tr><td>资产分类占比</td><td>按资产分类对资产原值分组汇总计算。</td></tr></tbody></table>
+      <h4>维保计划</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>计划总数</td><td>后台-设备维保-维保计划，按本月/本年计划开始时间过滤。</td></tr><tr><td>已完成数</td><td>维保任务状态为已完成的记录数量。</td></tr><tr><td>进行中数</td><td>维保任务状态为进行中的记录数量。</td></tr><tr><td>逾期数</td><td>计划完成时间已过且任务状态未完成的记录数量。</td></tr><tr><td>维保计划排行</td><td>按维保任务数量、完成率和逾期数聚合排序。</td></tr></tbody></table>
+      <h4>租赁统计</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>租赁面积</td><td>后台-房源管理-租售属性为租赁的房源面积汇总。</td></tr><tr><td>已用面积</td><td>租赁房源中已出租/已使用面积汇总。</td></tr><tr><td>空置面积</td><td>租赁总面积减已用面积。</td></tr><tr><td>出租率</td><td>已用面积除以租赁面积计算。</td></tr><tr><td>楼层租赁明细</td><td>后台-房源管理按楼栋、楼层汇总已用面积和总面积。</td></tr></tbody></table>
+      <h4>故障报警</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>报警总数</td><td>后台-报警信息中资产相关设备报警按统计周期汇总。</td></tr><tr><td>未处理数</td><td>报警状态为未处理的记录数量。</td></tr><tr><td>已处理数</td><td>报警状态为已处理的记录数量。</td></tr><tr><td>报警消息</td><td>后台-报警信息中的报警等级、设备、位置、描述、时间和状态。</td></tr></tbody></table>
+      <h4>报事报修</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>工单总数</td><td>后台-服务中心-工单，按统计周期汇总。</td></tr><tr><td>已完成数</td><td>工单状态为已完成的记录数量。</td></tr><tr><td>完成率</td><td>已完成数除以工单总数计算。</td></tr><tr><td>工单消息</td><td>工单类型、紧急程度、标题、位置、状态和创建时间。</td></tr></tbody></table>
+      <h4>投诉建议</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>反馈总数</td><td>后台-服务中心-投诉建议，按统计周期汇总。</td></tr><tr><td>已办理数</td><td>投诉建议状态为已办理的记录数量。</td></tr><tr><td>办理完成率</td><td>已办理数除以反馈总数计算。</td></tr><tr><td>反馈消息</td><td>反馈类型、紧急程度、内容、位置、状态和提交时间。</td></tr></tbody></table>
+      <h4>资产详情</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>资产编码</td><td>后台-资产管理-资产台账唯一编码。</td></tr><tr><td>资产名称</td><td>后台-资产管理-资产台账名称。</td></tr><tr><td>资产位置</td><td>后台-资产管理-资产与楼栋、楼层、房源的关联关系。</td></tr><tr><td>使用部门</td><td>后台-组织架构及资产领用关系。</td></tr><tr><td>入库时间</td><td>后台-资产管理-资产台账入库时间。</td></tr><tr><td>资产详情</td><td>后台-资产管理资产记录的完整字段及变更记录。</td></tr></tbody></table>
+    </div></section>
+  </template>
   <script src="app.js"></script>
+  <script src="requirement.js"></script>
 </body>
 </html>

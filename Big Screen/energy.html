@@ -117,12 +117,26 @@
         <section class="device-pane" data-pane="alarm"><h3 class="device-section-title">设备报警记录</h3><div class="alarm-record"><time>2025-10-10 17:24:07</time><div><strong>【设备报警】</strong> 设备离线</div></div><div class="alarm-record"><time>2025-10-10 17:24:06</time><div><strong>【设备报警】</strong> 温控面板设备离线告警</div></div><div class="alarm-record"><time>2025-10-10 17:23:44</time><div><strong>【设备报警】</strong> 设备离线</div></div></section>
         <section class="device-pane" data-pane="maintain"><div class="empty-table-head"><span>维保名称</span><span>执行人</span><span>负责部门</span><span>开始时间</span><span>完成时间</span><span>执行结果</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
         <section class="device-pane" data-pane="inspect"><div class="empty-table-head"><span>巡检名称</span><span>执行人</span><span>负责部门</span><span>开始时间</span><span>完成时间</span><span>执行结果</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
-        <section class="device-pane" data-pane="downstream"><div class="empty-table-head" style="grid-template-columns:repeat(5,1fr)"><span>设备名称</span><span>设备编码</span><span>所属房间</span><span>安装位置</span><span>是否智能化</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
+        <section class="device-pane" data-pane="downstream"><div class="empty-table-head downstream-table-head"><span>设备名称</span><span>设备编码</span><span>所属房源</span><span>安装位置</span><span>是否智能化</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
         <section class="device-pane" data-pane="qr"><div class="device-qr" aria-label="设备二维码"></div><div class="device-qr-label"><span data-device-name>30楼办公区西侧温控面板</span>（<span data-device-code>30F-WK-32-X07</span>）</div></section>
       </div>
     </div>
   </div>
   </div>
+  <template id="requirementDocument">
+    <section class="requirement-section" data-requirement-section><h3>需求说明</h3><div class="requirement-section-body"><p>能源管理页展示总用能量、用电、用水、空调用冷、光伏发电和碳排放，支持按周期、分区和能源类型分析趋势、累计量及同比环比。</p></div></section>
+    <section class="requirement-section" data-requirement-section><h3>操作入口</h3><div class="requirement-section-body"><p>可视化大屏 -&gt; 能源管理</p></div></section>
+    <section class="requirement-section" data-requirement-section><h3>交互动作</h3><div class="requirement-section-body"><ol><li><strong>统计周期：</strong>切换今日、本周、本月、本年，刷新总用能量、累计值、趋势图和碳排数据。</li><li><strong>分区查看：</strong>点击查看分区用电、分区用水或分区用冷，打开对应分区能耗明细。</li><li><strong>图表联动：</strong>鼠标 hover 柱图、折线图和结构图显示时间点、数值、单位及占比。</li><li><strong>异常下钻：</strong>点击能耗排行、异常区域或设备，查看关联房源、计量设备及报警详情。</li></ol></div></section>
+    <section class="requirement-section" data-requirement-section><h3>数据来源</h3><div class="requirement-section-body requirement-table-wrap">
+      <h4>总用能量</h4><table><thead><tr><th>字段名称</th><th>数据来源</th><th>统计口径</th></tr></thead><tbody><tr><td>碳排</td><td>后台-能源管理-碳排放数据</td><td>各能源消耗量乘以后台配置的排放因子，按周期汇总。</td></tr><tr><td>碳减排</td><td>后台-能源管理-碳排放数据</td><td>光伏发电量对应的减排量，按周期汇总。</td></tr><tr><td>用电</td><td>后台-能源管理-用电概览及电表 IoT 数据</td><td>项目全部电表读数按周期汇总。</td></tr><tr><td>光伏发电</td><td>后台-能源管理-光伏概览及光伏电表</td><td>光伏逆变器/电表发电量按周期汇总。</td></tr><tr><td>用水</td><td>后台-能源管理-用水概览及水表 IoT 数据</td><td>项目全部水表读数按周期汇总。</td></tr><tr><td>用冷</td><td>后台-能源管理-冷量概览及冷量表</td><td>项目全部冷量表读数按周期汇总。</td></tbody></table>
+      <h4>用电能耗</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>月度累计</td><td>后台-能源管理-用电概览本月用电量。</td></tr><tr><td>年度累计</td><td>后台-能源管理-用电概览本年用电量。</td></tr><tr><td>环比</td><td>本周期累计值与上一周期累计值计算。</td></tr><tr><td>用电趋势</td><td>IoT平台电表历史读数按日/月聚合。</td></tr><tr><td>分区用电</td><td>后台-能源管理-计量点位与房源/楼层关联关系聚合。</td></tr></tbody></table>
+      <h4>用水能耗</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>月度累计</td><td>后台-能源管理-用水概览本月用水量。</td></tr><tr><td>年度累计</td><td>后台-能源管理-用水概览本年用水量。</td></tr><tr><td>环比</td><td>本周期累计值与上一周期累计值计算。</td></tr><tr><td>用水趋势</td><td>IoT平台水表历史读数按日/月聚合。</td></tr><tr><td>分区用水</td><td>后台-能源管理-计量点位与房源/楼层关联关系聚合。</td></tr></tbody></table>
+      <h4>空调能耗</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>月度累计</td><td>后台-能源管理-冷量概览本月冷量。</td></tr><tr><td>年度累计</td><td>后台-能源管理-冷量概览本年冷量。</td></tr><tr><td>环比</td><td>本周期累计值与上一周期累计值计算。</td></tr><tr><td>用冷趋势</td><td>IoT平台冷量表历史读数按日/月聚合。</td></tr><tr><td>分区用冷</td><td>后台-能源管理-计量点位与房源/楼层关联关系聚合。</td></tr></tbody></table>
+      <h4>光伏发电</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>发电量</td><td>后台-能源管理-光伏概览及光伏逆变器实时数据。</td></tr><tr><td>发电趋势</td><td>光伏电表/逆变器历史数据按日/月聚合。</td></tr><tr><td>并网功率</td><td>IoT平台光伏逆变器实时功率属性。</td></tr><tr><td>累计减排</td><td>光伏发电量乘以后台配置的减排折算系数。</td></tr></tbody></table>
+      <h4>碳排放</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody><tr><td>用电碳排</td><td>用电量与后台碳排放设置中的电力排放因子计算。</td></tr><tr><td>用水碳排</td><td>用水量与后台碳排放设置中的水资源排放因子计算。</td></tr><tr><td>用冷碳排</td><td>冷量与后台碳排放设置中的冷量排放因子计算。</td></tr><tr><td>碳排放趋势</td><td>按统计周期对各能源碳排结果进行时间序列聚合。</td></tr></tbody></table>
+    </div></section>
+  </template>
   <script src="app.js"></script>
+  <script src="requirement.js"></script>
 </body>
 </html>

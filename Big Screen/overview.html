@@ -161,12 +161,109 @@
         <section class="device-pane" data-pane="alarm"><h3 class="device-section-title">设备报警记录</h3><div class="alarm-record"><time>2025-10-10 17:24:07</time><div><strong>【设备报警】</strong> 设备离线</div></div><div class="alarm-record"><time>2025-10-10 17:24:06</time><div><strong>【设备报警】</strong> 温控面板设备离线告警</div></div><div class="alarm-record"><time>2025-10-10 17:23:44</time><div><strong>【设备报警】</strong> 设备离线</div></div></section>
         <section class="device-pane" data-pane="maintain"><div class="empty-table-head"><span>维保名称</span><span>执行人</span><span>负责部门</span><span>开始时间</span><span>完成时间</span><span>执行结果</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
         <section class="device-pane" data-pane="inspect"><div class="empty-table-head"><span>巡检名称</span><span>执行人</span><span>负责部门</span><span>开始时间</span><span>完成时间</span><span>执行结果</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
-        <section class="device-pane" data-pane="downstream"><div class="empty-table-head" style="grid-template-columns:repeat(5,1fr)"><span>设备名称</span><span>设备编码</span><span>所属房间</span><span>安装位置</span><span>是否智能化</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
+        <section class="device-pane" data-pane="downstream"><div class="empty-table-head downstream-table-head"><span>设备名称</span><span>设备编码</span><span>所属房源</span><span>安装位置</span><span>是否智能化</span></div><div class="empty-state"><i class="fa-solid fa-box-open"></i><span>暂无数据</span></div></section>
         <section class="device-pane" data-pane="qr"><div class="device-qr" aria-label="设备二维码"></div><div class="device-qr-label"><span data-device-name>30楼办公区西侧温控面板</span>（<span data-device-code>30F-WK-32-X07</span>）</div></section>
       </div>
     </div>
   </div>
   </div>
+  <template id="requirementDocument">
+    <section class="requirement-section" data-requirement-section>
+      <h3>需求说明</h3>
+      <div class="requirement-section-body"><p>总览页集中展示项目建筑概况、荣誉、人员、车辆、能源、环境和设备报警信息，并支持从建筑主体切换至楼层视图查看关联设备。</p></div>
+    </section>
+    <section class="requirement-section" data-requirement-section>
+      <h3>操作入口</h3>
+      <div class="requirement-section-body"><p>可视化大屏 -&gt; 总览</p></div>
+    </section>
+    <section class="requirement-section" data-requirement-section>
+      <h3>交互动作</h3>
+      <div class="requirement-section-body">
+        <ol>
+          <li><strong>建筑主体视图：</strong>中间默认展示主体建筑外观二维平面图，点击“楼层切换”按钮向下展开楼栋/楼层切换面板，运行数据/报警数据。</li>
+          <li><strong>楼层视图：</strong>点击某层，中间视图展示“楼层平面图”，同时左右两边看板数据，展示当前楼层下关联的设备、设备数据及状态统计、实时/历史运行监测、设备报警数据。</li>
+          <li><strong>楼层视图设备详情：</strong>展示当前楼层关联的设备、设备图例，点击设备打开设备详情弹窗；勾选房间信息按钮，右侧面板展示当前楼层的空间类型统计、使用类型统计、设备统计。</li>
+          <li><strong>设备详情点位：</strong>获取后台-设备管理-设备点位选择点位渲染；设备图例/设备图标由后台-设备分类中动态上传。</li>
+          <li><strong>房间信息：</strong>空间类型统计后台-房源管理-房源类型面积占比，鼠标 hover 饼图显示各类型占比数据；使用类型统计后台-房源管理-租售属性占比；设备统计获取设备管理中各子系统设备占比数量。</li>
+        </ol>
+      </div>
+    </section>
+    <section class="requirement-section" data-requirement-section>
+      <h3>数据来源</h3>
+      <div class="requirement-section-body requirement-table-wrap">
+        <h4>建筑概况</h4>
+        <table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody>
+          <tr><td>建筑名称</td><td>获取后台-项目管理，建筑名称。</td></tr>
+          <tr><td>建筑规模</td><td>获取后台-项目管理，建筑规模。</td></tr>
+          <tr><td>开工日期</td><td>获取后台-项目管理，开工日期。</td></tr>
+          <tr><td>竣工日期</td><td>获取后台-项目管理，竣工日期。</td></tr>
+          <tr><td>项目定位</td><td>获取后台-项目管理，项目定位。</td></tr>
+          <tr><td>建设单位</td><td>获取后台-项目管理，建设单位。</td></tr>
+          <tr><td>设计单位</td><td>获取后台-项目管理，设计单位。</td></tr>
+          <tr><td>施工单位</td><td>获取后台-项目管理，施工单位。</td></tr>
+        </tbody></table>
+
+        <h4>荣誉展示</h4>
+        <table><thead><tr><th>字段名称</th><th>数据来源</th><th>交互动作</th></tr></thead><tbody>
+          <tr><td>荣誉奖项</td><td>获取后台-项目管理-扩展信息，荣誉奖项上传。</td><td>轮播滚动。</td></tr>
+          <tr><td>荣誉证书</td><td>获取后台-项目管理-扩展信息，荣誉证书上传。</td><td>轮播滚动，点击预览大图，支持下载。</td></tr>
+        </tbody></table>
+
+        <h4>人员统计</h4>
+        <table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody>
+          <tr><td>人员总数</td><td>对接第三方人员通行系统获取。</td></tr>
+          <tr><td>访客</td><td>对接第三方人员通行系统获取。</td></tr>
+          <tr><td>人员分区-低中区</td><td>对接第三方人员通行系统获取。</td></tr>
+          <tr><td>人员分区-高区</td><td>对接第三方人员通行系统获取。</td></tr>
+        </tbody></table>
+
+        <h4>车辆统计</h4>
+        <table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody>
+          <tr><td>车位总数</td><td>对接第三方智慧停车系统获取。</td></tr>
+          <tr><td>剩余车位</td><td>对接第三方智慧停车系统获取。</td></tr>
+          <tr><td>使用中</td><td>对接第三方智慧停车系统获取。</td></tr>
+          <tr><td>剩余</td><td>对接第三方智慧停车系统获取。</td></tr>
+        </tbody></table>
+
+        <h4>能源管理</h4>
+        <table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody>
+          <tr><td>电耗</td><td>1、通过象形动效展示数据实时变化，例如电表转动一圈，数值相应增加。<br>2、月度：获取后台能源管理-用电概览本月用电量。<br>3、年度：获取后台能源管理-用电概览本年用电量。</td></tr>
+          <tr><td>水耗</td><td>1、通过象形动效展示数据实时变化，例如水表转动一圈，数值相应增加。<br>2、月度：获取后台能源管理-用水概览本月用水量。<br>3、年度：获取后台能源管理-用水概览本年用水量。</td></tr>
+          <tr><td>冷量</td><td>1、通过象形动效展示数据实时变化，例如冷量表转动一圈，数值相应增加。<br>2、月度：获取后台能源管理-冷量概览本月冷量。<br>3、年度：获取后台能源管理-冷量概览本年冷量。</td></tr>
+          <tr><td>光伏</td><td>1、通过象形动效展示数据实时变化，例如光伏电表转动一圈，数值相应增加。<br>2、月度：获取后台能源管理-光伏概览本月发电量。<br>3、年度：获取后台能源管理-光伏概览本年发电量。</td></tr>
+        </tbody></table>
+
+        <h4>环境指标</h4>
+        <table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody>
+          <tr><td>自持</td><td>自持环境指标：获取后台所有自持房源下关联设备的环境指标平均值；<br>1、平均温度：自持房源下关联设备平均温度；<br>2、平均湿度：自持房源下关联设备平均湿度；<br>3、CO2：自持房源下关联设备 CO2；<br>4、PM2.5：自持房源下关联设备 PM2.5；<br>5、甲醛：自持房源下关联设备甲醛；<br>6、TVOC：自持房源下关联设备 TVOC。</td></tr>
+          <tr><td>租区</td><td>租区环境指标：获取后台所有租区房源下关联设备的环境指标平均值；<br>1、平均温度：租区房源下关联设备平均温度；<br>2、平均湿度：租区房源下关联设备平均湿度；<br>3、CO2：租区房源下关联设备 CO2；<br>4、PM2.5：租区房源下关联设备 PM2.5；<br>5、甲醛：租区房源下关联设备甲醛；<br>6、TVOC：租区房源下关联设备 TVOC。</td></tr>
+        </tbody></table>
+
+        <h4>报警管理</h4>
+        <table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody>
+          <tr><td>报警总数</td><td>统计管理后台-报警信息中状态为未处理、处理中和已处理的报警总数。</td></tr>
+          <tr><td>未处理</td><td>统计管理后台-报警信息中状态为未处理的报警总数。</td></tr>
+          <tr><td>已处理</td><td>统计管理后台-报警信息中状态为已处理的报警总数。</td></tr>
+          <tr><td>报警消息</td><td>获取管理后台-报警信息数据，展示报警等级、报警设备、报警位置、报警描述、报警时间和报警状态信息。</td></tr>
+        </tbody></table>
+
+        <h4>设备详情</h4>
+        <table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody>
+          <tr><td>设备点位坐标</td><td>获取后台-设备管理-设备点位选择点位渲染。</td></tr>
+          <tr><td>设备分类图例</td><td>获取后台-设备分类中动态上传的设备分类图例。</td></tr>
+          <tr><td>设备图标</td><td>获取后台-设备分类中动态上传的设备图标。</td></tr>
+          <tr><td>设备台账</td><td>获取管理后台-设备管理信息。</td></tr>
+          <tr><td>设备监测</td><td>获取管理后台-IoT平台数据，包括物模型属性定义和物模型功能定义；<br>1、属性定义：实时获取 IoT 平台配置的设备属性定义数据，包括属性名称、值和实时时间；<br>2、功能定义：实时获取 IoT 平台配置的设备功能定义数据，包括功能名称和功能按钮，用于下发控制设备指令。</td></tr>
+          <tr><td>设备报警</td><td>获取后台报警信息-设备报警记录，包括报警记录和处理详情。</td></tr>
+          <tr><td>设备维保</td><td>获取后台-保养管理数据。</td></tr>
+          <tr><td>设备巡检</td><td>获取后台-巡检管理数据。</td></tr>
+          <tr><td>下游设备</td><td>获取后台-设备管理-设备层级中当前主设备关联的下游设备。</td></tr>
+          <tr><td>设备二维码</td><td>获取设备二维码信息，包括设备二维码、设备名称、设备编码，支持下载。</td></tr>
+        </tbody></table>
+      </div>
+    </section>
+  </template>
   <script src="app.js"></script>
+  <script src="requirement.js"></script>
 </body>
 </html>
