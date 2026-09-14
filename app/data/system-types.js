@@ -14,5 +14,7 @@
     { id: 12, name: "智慧停车", code: "ELV-PARK", sort: 2, intro: "停车场出入口及停车引导系统。", parent: 10 },
     { id: 13, name: "综合安防", code: "ELV-SEC", sort: 3, intro: "视频监控、门禁及报警系统。", parent: 10 },
     { id: 14, name: "信息网络", code: "ELV-NET", sort: 4, intro: "综合布线与信息网络系统。", parent: 10 },
+    { id: 15, name: "能源管理系统", code: "EMS", sort: 3, intro: "建筑能源计量、分析与管理系统。", image: "", parent: null },
+    { id: 16, name: "能源系统", code: "EMS-ENERGY", sort: 1, intro: "建筑水、电及冷热能源计量系统。", parent: 15 },
   ];
 })();

@@ -92,8 +92,38 @@
         { id: '2栋', floors: ['5F', '4F', '3F', '2F', '1F'] },
         { id: '3栋', floors: ['5F', '4F', '3F', '2F', '1F'] },
         { id: '4栋', floors: ['5F', '4F', '3F', '2F', '1F'] },
-        { id: '5栋', floors: ['5F', '4F', '3F', '2F', '1F'] }
       ];
+      const environmentFloorPicker = document.getElementById('environmentFloorPicker');
+      const carbonPeriodValues = { today: ['26.55', '23.86', '21.48', '19.62'], week: ['186.42', '168.03', '151.36', '138.75'], month: ['798.63', '720.18', '648.92', '594.37'], year: ['9,584', '8,642', '7,787', '7,132'] };
+      document.querySelectorAll('[data-carbon-period]').forEach((button) => button.addEventListener('click', () => {
+        document.querySelectorAll('[data-carbon-period]').forEach((item) => {
+          const selected = item === button;
+          item.classList.toggle('active', selected);
+          item.setAttribute('aria-selected', String(selected));
+        });
+        document.querySelectorAll('[data-carbon-building]').forEach((value, index) => { value.textContent = carbonPeriodValues[button.dataset.carbonPeriod]?.[index] || '0'; });
+      }));
+      if (environmentFloorPicker) {
+        const trigger = environmentFloorPicker.querySelector('.environment-floor-trigger');
+        const menu = environmentFloorPicker.querySelector('.environment-floor-menu');
+        menu.innerHTML = buildingFloors.map(({ id, floors }, buildingIndex) => `<details class="environment-floor-building" ${buildingIndex === 0 ? 'open' : ''}><summary>${id}</summary><div>${floors.map((floor, floorIndex) => `<label><input type="radio" name="environmentFloor" value="${id} ${floor}" ${buildingIndex === 0 && floorIndex === 0 ? 'checked' : ''}><span>${floor}</span></label>`).join('')}</div></details>`).join('');
+        trigger.addEventListener('click', (event) => {
+          event.stopPropagation();
+          const open = environmentFloorPicker.classList.toggle('open');
+          trigger.setAttribute('aria-expanded', String(open));
+        });
+        menu.addEventListener('click', (event) => event.stopPropagation());
+        menu.addEventListener('change', (event) => {
+          if (!event.target.matches('input[type="radio"]')) return;
+          trigger.querySelector('span').textContent = event.target.value;
+          environmentFloorPicker.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+        document.addEventListener('click', () => {
+          environmentFloorPicker.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+      }
       if (floorMenu) {
         floorMenu.innerHTML = buildingFloors.map(({ id, floors }, buildingIndex) => `<div class="floor-building"><strong>${id}</strong>${floors.map((floor, floorIndex) => `<button type="button" data-building="${id}" data-floor="${floor}" class="${buildingIndex === 0 && floorIndex === 0 ? 'active' : ''}">${floor}</button>`).join('')}</div>`).join('');
       }
@@ -115,12 +145,40 @@
           panel.classList.add('energy-overview-panel', `energy-overview-${type}`);
           const title = panel.querySelector('.panel-title');
           if (title) title.firstChild.textContent = panelTitle;
-          panel.querySelector('.energy-stat-head button')?.remove();
           const head = panel.querySelector('.energy-stat-head');
-          if (head) head.innerHTML = `<span class="energy-trend-label">${trend}</span><span class="energy-stat-unit">${unit}</span>`;
+          if (head) head.innerHTML = `<span class="energy-trend-label">${trend}</span><span class="energy-stat-unit">${unit}</span>${type === 'cooling' ? '<button class="energy-detail-trigger" type="button" data-energy-detail="cooling" onclick="document.getElementById(\'coolingDetailModal\').style.display=\'flex\'; return false;">查看</button>' : `<button class="energy-detail-trigger" type="button" data-energy-detail="${type}">查看</button>`}`;
         });
+        const energyDetailMarkup = `<div class="energy-detail-modal" id="energyDetailModal" role="dialog" aria-modal="true" aria-labelledby="energyDetailTitle"><div class="energy-detail-dialog"><button class="energy-detail-close" type="button" aria-label="关闭能源明细">×</button><div class="energy-detail-head"><h2 id="energyDetailTitle">用电概览明细</h2></div><div class="energy-detail-tabs" role="tablist"><button class="active" type="button" data-energy-view="zone">分区统计</button><button type="button" data-energy-view="item">分项统计</button></div><div class="energy-detail-filters"><button class="active" type="button">今日</button><button type="button">本月</button><button type="button">本年</button></div><div class="energy-detail-summary" id="energyDetailSummary"></div><div class="energy-detail-content"><aside class="energy-master-list"><h3>总表</h3><button class="active" type="button" data-master="项目总表">项目总表<small>26,552 kW·h</small></button><button type="button" data-master="1栋总表">1栋总表<small>6,480 kW·h</small></button><button type="button" data-master="2栋总表">2栋总表<small>6,725 kW·h</small></button><button type="button" data-master="3栋总表">3栋总表<small>6,392 kW·h</small></button><button type="button" data-master="4栋总表">4栋总表<small>6,955 kW·h</small></button></aside><section class="energy-detail-table-wrap"><h3>分表列表</h3><div class="energy-detail-table" id="energyDetailTable"></div></section></div></div></div>`;
+        document.body.insertAdjacentHTML('beforeend', energyDetailMarkup);
+        const energyDetailModal = document.getElementById('energyDetailModal');
+        const energyDetailTable = document.getElementById('energyDetailTable');
+        const energyDetailData = { electric: { title: '用电概览明细', unit: 'kW·h', zoneCards: [['总用量','26,552'],['1号楼用量','6,480'],['2号楼用量','6,725'],['3号楼用量','6,392'],['4号楼用量','6,955']], itemCards: [['总用量','26,552'],['插座用量','4,186'],['照明用量','4,240'],['空调用量','13,972'],['动力设备用量','4,154']], zone: [['空调分表','AC-1F-001','1栋','1F','总部办公区','3,680'],['照明分表','LT-2F-014','2栋','2F','公共走道','1,245'],['动力设备分表','PW-4F-006','4栋','4F','设备机房','2,180']], item: [['插座','LT-ALL-001','项目','-','插座','4,186'],['照明','LT-ALL-002','项目','-','照明','4,240'],['空调','AC-ALL-001','项目','-','空调','13,972'],['动力设备','PW-ALL-001','项目','-','动力设备','4,154']] }, water: { title: '用水概览明细', unit: 't', zoneCards: [['总用量','1,286'],['1号楼用量','312'],['2号楼用量','296'],['3号楼用量','338'],['4号楼用量','340']], zone: [['生活用水分表','WM-1F-001','1栋','1F','卫生间','312'],['生活用水分表','WM-2F-003','2栋','2F','茶水间','296'],['公共用水分表','WM-3F-006','3栋','3F','公共区域','338'],['公共用水分表','WM-4F-009','4栋','4F','卫生间','340']] }, cooling: { title: '用冷概览明细', unit: 'kW·h', zoneCards: [['总用量','18,432'],['1号楼用量','4,520'],['2号楼用量','4,316'],['3号楼用量','4,789'],['4号楼用量','4,807']], zone: [['空调冷量分表','CM-1F-001','1栋','1F','公区空调','4,520'],['空调冷量分表','CM-2F-004','2栋','2F','租赁区空调','4,316'],['空调冷量分表','CM-3F-007','3栋','3F','公区空调','4,789'],['空调冷量分表','CM-4F-010','4栋','4F','租赁区空调','4,807']] }, solar: { title: '光伏概览明细', unit: 'kW·h', zoneCards: [['总发电量','8,426'],['1号楼逆变器','2,086'],['2号楼逆变器','2,194'],['3号楼逆变器','2,018'],['4号楼逆变器','2,128']], zone: [['逆变器接口电表','PV-INV-01','1栋','屋顶','接口A','1,086'],['逆变器接口电表','PV-INV-02','2栋','屋顶','接口B','1,194'],['逆变器接口电表','PV-INV-03','3栋','屋顶','接口A','1,018'],['逆变器接口电表','PV-INV-04','4栋','屋顶','接口B','1,128']] } };
+        let currentEnergyType = 'electric';
+        let detailRows = energyDetailData.electric;
+        let selectedMaster = '项目总表';
+        const renderEnergyDetail = (view = 'zone') => { const config = energyDetailData[currentEnergyType]; const sourceRows = config[view] || config.zone; const rows = currentEnergyType === 'solar' ? sourceRows.map((row) => [row[0], row[1], row[2], row[3], row[5]]) : sourceRows; const headers = currentEnergyType === 'solar' ? ['设备名称','设备编码','楼栋','位置','发电量（kW·h）'] : ['设备名称','设备编码','楼栋','楼层','房源','用量（' + config.unit + '）']; energyDetailTable.innerHTML = `<div class="energy-detail-row table-head">${headers.map((header) => `<span>${header}</span>`).join('')}</div>${rows.map((row) => `<div class="energy-detail-row">${row.map((cell) => `<span>${cell}</span>`).join('')}</div>`).join('')}`; };
+        const renderEnergySummary = (view = 'zone') => { const config = energyDetailData[currentEnergyType]; document.getElementById('energyDetailSummary').innerHTML = (config[view + 'Cards'] || config.zoneCards).map(([label, value]) => `<div><span>${label}</span><strong>${value} <small>${config.unit}</small></strong></div>`).join(''); };
+        const configureEnergyDetail = (type) => { currentEnergyType = type; const config = energyDetailData[type]; detailRows = config; selectedMaster = '项目总表'; energyDetailModal.classList.toggle('zone-only', type !== 'electric'); document.getElementById('energyDetailTitle').textContent = config.title; const tabs = document.querySelector('.energy-detail-tabs'); tabs.hidden = type !== 'electric'; document.querySelector('[data-energy-view="item"]').hidden = type !== 'electric'; document.querySelectorAll('[data-master]').forEach((button) => { button.style.display = ''; button.classList.toggle('active', button.dataset.master === '项目总表'); }); renderEnergySummary('zone'); renderEnergyDetail('zone'); };
+        const openEnergyDetail = (type) => { configureEnergyDetail(type); energyDetailModal.classList.add('open'); energyDetailModal.setAttribute('aria-hidden', 'false'); };
+        window.__openEnergyDetail = openEnergyDetail;
+        renderEnergySummary();
+        renderEnergyDetail();
+        document.addEventListener('click', (event) => { const trigger = event.target.closest?.('[data-energy-detail]'); if (trigger) openEnergyDetail(trigger.dataset.energyDetail); if (event.target.closest?.('.energy-detail-close') || event.target === energyDetailModal) { energyDetailModal.classList.remove('open'); energyDetailModal.setAttribute('aria-hidden', 'true'); } const view = event.target.closest?.('[data-energy-view]'); if (view) { document.querySelectorAll('[data-energy-view]').forEach((button) => button.classList.toggle('active', button === view)); renderEnergySummary(view.dataset.energyView); renderEnergyDetail(view.dataset.energyView); } const master = event.target.closest?.('[data-master]'); if (master) { selectedMaster = master.dataset.master; document.querySelectorAll('[data-master]').forEach((button) => button.classList.toggle('active', button === master)); renderEnergyDetail(document.querySelector('[data-energy-view].active')?.dataset.energyView || 'zone'); } });
         energyPanels.find((panel) => panel?.classList.contains('energy-carbon-panel'))?.classList.add('energy-solar-overview-panel');
-        document.querySelector('.solar-generation-head button')?.remove();
+        const solarHead = document.querySelector('.solar-generation-head');
+        if (solarHead) solarHead.innerHTML = '<span class="energy-trend-label">发电趋势</span><span class="energy-stat-unit">单位(万kW·h)</span><button class="energy-detail-trigger" type="button" data-energy-detail="solar" onclick="window.__openEnergyDetail(\'solar\'); return false;">查看</button>';
+        document.querySelectorAll('[data-energy-detail]').forEach((button) => button.onclick = (event) => {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          openEnergyDetail(button.dataset.energyDetail);
+        });
+        document.addEventListener('click', (event) => {
+          const button = event.target.closest?.('[data-energy-detail]');
+          if (!button) return;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          openEnergyDetail(button.dataset.energyDetail);
+        }, true);
         const breakdown = document.querySelector('.energy-breakdown-panel');
         const legend = breakdown?.querySelector('.energy-breakdown-legend');
         const breakdownHead = breakdown?.querySelector('.energy-breakdown-head');
@@ -145,11 +203,11 @@
         gas: { intro: '燃气系统服务商业厨房及配套区域，设置燃气表、泄漏报警和紧急切断装置，实现用气计量与安全联动。', subs: ['燃气系统'], total: 2, online: 2, alarms: 0, devices: ['裙楼3层燃气表', '裙楼3层燃气报警器'] },
         solar: { intro: '屋顶布置光伏发电设备，系统监测逆变器、发电功率和累计发电量，为项目提供可再生能源运行数据。', subs: ['光伏系统'], total: 14, online: 8, alarms: 0, devices: ['西面光伏逆变器', '南面光伏逆变器', '东面光伏逆变器', '屋顶光伏逆变器', '8楼光伏发电', '并网计量柜'] },
         ventilation: { intro: '自然通风系统根据室内外温湿度、风速及空气品质自动判断启停条件，联动通风器改善室内环境并降低空调能耗。', subs: ['低区通风', '中区通风', '高区通风', '室外区'], total: 84, online: 80, alarms: 1, devices: ['低区电动通风器', '中区电动通风器', '高区电动通风器', '室外温湿度传感器', '风速传感器', '雨量传感器'] },
-        'weak-overview': { intro: '弱电系统统一管理会议办公、智慧停车、综合安防和信息网络等系统，实现设备集中监测、场景联动和运行状态可视化。', subs: [], total: 1435, online: 1368, alarms: 10, devices: ['6F弱电间', '7F弱电间', '7F数据中心机房', '1F安防控制室'] },
+        'weak-overview': { intro: '弱电系统统一管理会议办公、智慧停车、综合安防和信息网络等系统，实现设备集中监测、场景联动和运行状态可视化。', subs: [], total: 1435, online: 1368, alarms: 10, devices: ['1F弱电间', '1F弱电间', '1F数据中心机房', '1F安防控制室'] },
         meeting: { intro: '会议办公系统提供会议室预约、智能音视频、信息发布和办公协同能力，支持会议场景统一控制。', subs: [], total: 94, online: 89, alarms: 0, devices: ['15F经理办公区', '31F会议室', '32F会议室', '多媒体会议终端'] },
         parking: { intro: '智慧停车系统管理车辆进出、车位引导、停车计费和机械车位设施，为地下车库提供实时运行数据。', subs: [], total: 198, online: 198, alarms: 0, devices: ['B1停车场', 'B2停车场', 'B3停车场', '机械车位控制器'] },
         security: { intro: '综合安防系统融合门禁、视频监控、消防报警和重点区域监控，支持异常事件快速发现和联动处置。', subs: [], total: 416, online: 416, alarms: 0, devices: ['门禁系统', '视频监控', '消防报警', '重点区域监控'] },
-        network: { intro: '信息网络系统覆盖数据中心、网络设备、机房环境和综合布线，为项目业务系统提供稳定可靠的网络基础。', subs: [], total: 36, online: 36, alarms: 0, devices: ['23楼弱电间温控面板', '24层POE交换机', '1F数据中心机房', '网络核心交换机'] }
+        network: { intro: '信息网络系统覆盖数据中心、网络设备、机房环境和综合布线，为项目业务系统提供稳定可靠的网络基础。', subs: [], total: 36, online: 36, alarms: 0, devices: ['1F弱电间温控面板', '1层POE交换机', '1F数据中心机房', '网络核心交换机'] }
       };
       const weakLocations = Array.from({ length: 5 }, (_, buildingIndex) => buildingIndex + 1).flatMap((building) =>
         Array.from({ length: 5 }, (_, floorIndex) => {
@@ -412,9 +470,9 @@
           rows: [['监听音响（主）', '1F-XK-YS-01'], ['IP模块音频接口', '1F-XK-IP-01'], ['IP模块音频接口', '1F-XK-IP-02'], ['电脑主机', '1F-XK-PC-01'], ['IP模块音频接口', '1F-XK-IP-03'], ['1楼平时排风机', '1F-XK-FAN-01'], ['1层消防控制室-消防门2号', '1F-XK-DOOR-02'], ['IP模块音频接口', '1F-XK-IP-04'], ['1楼消防控制室温控面板', '1F-XK-TH-01'], ['网络音频接口', '1F-XK-NET-01'], ['IP模块音频接口', '1F-XK-IP-05'], ['24口POE交换机-1', '1F-XK-POE-01']]
         },
         shaft: {
-          title: '房间详情-23F弱电间',
-          position: '23F弱电间',
-          rows: [['23楼弱电间温控面板', '23F-WK-TH-01'], ['24口POE交换机-1', '23F-WK-POE-01'], ['塔楼23层烟感', '23F-WK-SMOKE-01'], ['24口POE交换机-1', '23F-WK-POE-02'], ['24口接入交换机-1', '23F-WK-ACCESS-01'], ['24口接入交换机-1', '23F-WK-ACCESS-02']]
+          title: '房间详情-1F弱电间',
+          position: '1F弱电间',
+          rows: [['1F弱电间温控面板', '1F-WK-TH-01'], ['1口POE交换机-1', '1F-WK-POE-01'], ['1F烟感', '1F-WK-SMOKE-01'], ['1口POE交换机-1', '1F-WK-POE-02'], ['1口接入交换机-1', '1F-WK-ACCESS-01'], ['1口接入交换机-1', '1F-WK-ACCESS-02']]
         }
       };
       const openNetworkSimpleRoomModal = (room) => {
@@ -498,8 +556,8 @@
         workspace.classList.toggle('network-active', key === 'network');
         workspace.classList.toggle('mep-subsystem-active', isMepSystem);
         resetDeviceFilters();
-        document.querySelector('.mep-left > .mep-intro-panel .panel-title').childNodes[0].textContent = isOverview ? '系统分类' : isWeakSystem ? (key === 'meeting' ? '会议室使用' : key === 'parking' ? '停车概览' : key === 'security' ? '道闸系统' : key === 'network' ? '数据中心机房' : '系统分类') : '系统简介';
-        document.getElementById('mepSystemIntro').innerHTML = isOverview ? `<div class="overview-class-grid"><button>系统总览</button><button>暖通空调系统</button><button>电气系统</button><button>给排水系统</button><button>消防系统</button><button>电梯系统</button><button>燃气系统</button><button>光伏系统</button><button>自然通风系统</button></div>` : data.intro;
+        document.querySelector('.mep-left > .mep-intro-panel .panel-title').childNodes[0].textContent = isOverview ? '设备分类统计' : isWeakSystem ? (key === 'meeting' ? '会议室使用' : key === 'parking' ? '停车概览' : key === 'security' ? '道闸系统' : key === 'network' ? '数据中心机房' : '系统分类') : '系统简介';
+        document.getElementById('mepSystemIntro').innerHTML = isOverview ? `<div class="mep-system-category-grid" aria-label="各系统设备数量"><article class="hvac"><i class="fa-solid fa-wind" aria-hidden="true"></i><div><strong>暖通空调</strong><b>186</b></div></article><article class="electric"><i class="fa-solid fa-bolt" aria-hidden="true"></i><div><strong>电气系统</strong><b>152</b></div></article><article class="water"><i class="fa-solid fa-faucet-drip" aria-hidden="true"></i><div><strong>给排水系统</strong><b>96</b></div></article><article class="fire"><i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i><div><strong>消防系统</strong><b>214</b></div></article><article class="elevator"><i class="fa-solid fa-elevator" aria-hidden="true"></i><div><strong>电梯系统</strong><b>20</b></div></article><article class="gas"><i class="fa-solid fa-gas-pump" aria-hidden="true"></i><div><strong>燃气系统</strong><b>32</b></div></article><article class="solar"><i class="fa-solid fa-solar-panel" aria-hidden="true"></i><div><strong>光伏系统</strong><b>48</b></div></article><article class="ventilation"><i class="fa-solid fa-fan" aria-hidden="true"></i><div><strong>自然通风</strong><b>75</b></div></article></div>` : data.intro;
         document.querySelector('.mep-left > .mep-device-list-panel .panel-title').childNodes[0].textContent = isOverview ? '设备房列表' : isWeakSystem ? '设备列表' : '设备列表';
         const leftTitle = document.querySelector('.mep-left > .mep-intro-panel .panel-title');
         const rightTitles = [...document.querySelectorAll('.mep-right .default-mep-panel .panel-title')];

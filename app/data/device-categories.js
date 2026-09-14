@@ -8,5 +8,8 @@
     { id: 6, name: "枪式摄像机", code: "SECURITY-BULLET", system: "综合安防", sort: 6, remark: "综合安防枪式摄像机" },
     { id: 7, name: "半球摄像机", code: "SECURITY-DOME", system: "综合安防", sort: 7, remark: "综合安防半球摄像机" },
     { id: 8, name: "球型摄像机", code: "SECURITY-PTZ", system: "综合安防", sort: 8, remark: "综合安防球型摄像机" },
+    { id: 9, name: "水表", code: "ENERGY-WATER-METER", system: "能源系统", sort: 9, remark: "能源系统水表" },
+    { id: 10, name: "电表", code: "ENERGY-ELECTRIC-METER", system: "能源系统", sort: 10, remark: "能源系统电表" },
+    { id: 11, name: "冷热表", code: "ENERGY-HOT-COLD-METER", system: "能源系统", sort: 11, remark: "能源系统冷热表" },
   ];
 })();

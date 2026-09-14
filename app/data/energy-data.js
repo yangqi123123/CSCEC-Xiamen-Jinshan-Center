@@ -108,7 +108,7 @@
       "fa-bolt",
       [{ key: "total", label: "总电量" }, ...categoryMeta.electricity.map(({ key, label }) => ({ key, label: `${label}用电` }))],
       ["序号", "获取时间", "楼栋", "楼层", "房源", "用电量(kW·h)"],
-      ["序号", "获取时间", "设备名称", "设备编号", "楼栋", "楼层", "房源", "用途", "当前读数(kW·h)", "上次读数(kW·h)", "用电量(kW·h)"],
+      ["序号", "获取时间", "设备名称", "设备编号", "楼栋", "楼层", "房源", "当前读数(kW·h)", "上次读数(kW·h)", "用电量(kW·h)"],
       [
         { key: "building", label: "楼栋", type: "select", optionsKey: "building" },
         { key: "floor", label: "楼层", type: "select", optionsKey: "floor" },
@@ -124,7 +124,7 @@
       "fa-droplet",
       [{ key: "total", label: "总水量" }, ...categoryMeta.water.map(({ key, label }) => ({ key, label: `${label}用水` }))],
       ["序号", "获取时间", "楼栋", "楼层", "房源", "用水量(m³)"],
-      ["序号", "获取时间", "设备名称", "设备编号", "楼栋", "楼层", "房源", "用途", "当前读数(m³)", "上次读数(m³)", "用水量(m³)"],
+      ["序号", "获取时间", "设备名称", "设备编号", "楼栋", "楼层", "房源", "当前读数(m³)", "上次读数(m³)", "用水量(m³)"],
       [
         { key: "building", label: "楼栋", type: "select", optionsKey: "building" },
         { key: "floor", label: "楼层", type: "select", optionsKey: "floor" },
@@ -139,7 +139,7 @@
       "fa-snowflake",
       [{ key: "total", label: "总冷量" }, ...categoryMeta.cooling.map(({ key, label }) => ({ key, label: `${label}用冷` }))],
       ["序号", "获取时间", "楼栋", "楼层", "房源", "用冷量(kW)"],
-      ["序号", "获取时间", "设备名称", "设备编号", "楼栋", "楼层", "房源", "用途", "当前读数(kW)", "上次读数(kW)", "用冷量(kW)"],
+      ["序号", "获取时间", "设备名称", "设备编号", "楼栋", "楼层", "房源", "当前读数(kW)", "上次读数(kW)", "用冷量(kW)"],
       [
         { key: "building", label: "楼栋", type: "select", optionsKey: "building" },
         { key: "floor", label: "楼层", type: "select", optionsKey: "floor" },
