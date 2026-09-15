@@ -4,6 +4,7 @@
     floor: ["1层", "2层", "3层", "4层", "5层"],
     area: ["101房源", "201房源", "301房源", "401房源", "501房源"],
     usage: ["办公照明", "空调系统", "生活用水", "设备运行"],
+    powerSubitem: ["照明", "插座", "空调", "动力设备"],
   };
 
   const deviceNames = {
@@ -40,7 +41,7 @@
     ],
   };
 
-  function createRows(type) {
+  function createRows(type, supportsMeterHierarchy) {
     const categories = categoryMeta[type];
     const rows = [];
     for (let hour = 0; hour < 24; hour += 1) {
@@ -49,6 +50,10 @@
       const deviceBuilding = `${((hour + 1) % 4) + 1}号楼`;
       const baseValue = category.value + (hour % 5) * (type === "water" ? 0.04 : 0.22);
       const date = `2026-09-05T${String(hour).padStart(2, "0")}:00`;
+      const masterMeterIndex = Math.floor(hour / 4) * 4 + 1;
+      const meterLevel = supportsMeterHierarchy && hour % 4 === 0 ? "master" : supportsMeterHierarchy ? "sub" : null;
+      const meterId = supportsMeterHierarchy ? `${type}-meter-${hour + 1}` : null;
+      const sourceDeviceName = deviceNames[type][hour % deviceNames[type].length].replaceAll("（主）", "");
       rows.push({
         id: `${type}-floor-${hour + 1}`,
         view: "floor",
@@ -73,10 +78,14 @@
         building: deviceBuilding,
         floor: `${((hour + 1) % 5) + 1}层`,
         area: commonOptions.area[(hour + 1) % commonOptions.area.length],
-        deviceName: deviceNames[type][hour % deviceNames[type].length],
+        deviceName: supportsMeterHierarchy ? `${sourceDeviceName}（${meterLevel === "master" ? "总表" : "分表"}）` : sourceDeviceName,
         deviceType: type === "electricity" ? "电" : type === "water" ? "水" : type === "cooling" ? "冷量" : "光伏",
         deviceNo: `${type.slice(0, 1).toUpperCase()}204814${String(hour + 25).padStart(4, "0")}`,
         usage: type === "electricity" ? commonOptions.usage[(hour + 1) % commonOptions.usage.length] : "设备运行",
+        meterId,
+        meterLevel,
+        parentMeterId: meterLevel === "sub" ? `${type}-meter-${masterMeterIndex}` : null,
+        powerSubitem: type === "electricity" && meterLevel === "sub" ? commonOptions.powerSubitem[hour % commonOptions.powerSubitem.length] : "",
         currentReading: Number((previousReading + deviceValue).toFixed(2)),
         previousReading,
         value: deviceValue,
@@ -85,7 +94,7 @@
     return rows;
   }
 
-  function createConfig(type, title, unit, icon, summary, floorColumns, deviceColumns, filterFields) {
+  function createConfig(type, title, unit, icon, summary, floorColumns, deviceColumns, filterFields, supportsMeterHierarchy = false) {
     return {
       type,
       title,
@@ -94,9 +103,12 @@
       summary,
       floorColumns,
       deviceColumns,
+      subDeviceColumns: type === "electricity" ? deviceColumns.flatMap((column) => column === "房源" ? [column, "用电分项"] : [column]) : deviceColumns,
+      masterDeviceColumns: supportsMeterHierarchy ? [...deviceColumns, "操作"] : deviceColumns,
+      supportsMeterHierarchy,
       filterFields,
       options: commonOptions,
-      rows: createRows(type),
+      rows: createRows(type, supportsMeterHierarchy),
     };
   }
 
@@ -116,6 +128,7 @@
         { key: "area", label: "房源", type: "text", placeholder: "请输入房源" },
         { key: "usage", label: "用途", type: "text", placeholder: "请输入用途", deviceOnly: true },
       ],
+      true,
     ),
     water: createConfig(
       "water",
@@ -131,6 +144,7 @@
         { key: "deviceName", label: "设备名称", type: "text", placeholder: "请输入设备名称/ID", deviceOnly: true },
         { key: "area", label: "房源", type: "text", placeholder: "请输入房源" },
       ],
+      true,
     ),
     cooling: createConfig(
       "cooling",
@@ -146,6 +160,7 @@
         { key: "deviceName", label: "设备名称", type: "text", placeholder: "请输入设备名称/ID", deviceOnly: true },
         { key: "area", label: "房源", type: "text", placeholder: "请输入房源" },
       ],
+      true,
     ),
     photovoltaic: createConfig(
       "photovoltaic",

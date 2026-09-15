@@ -90,8 +90,10 @@ def add_body(doc, text):
 
 
 def add_bullet(doc, text, numbered=False):
-    style = "List Number" if numbered else "List Bullet"
-    p = doc.add_paragraph(text, style=style)
+    p = doc.add_paragraph()
+    p.add_run(("1. " if numbered else "• ") + text)
+    p.paragraph_format.left_indent = Pt(21)
+    p.paragraph_format.first_line_indent = Pt(-21)
     p.paragraph_format.space_after = Pt(3)
     return p
 
@@ -156,16 +158,18 @@ def backend_docs():
     start = source.index("(function () {") + len("(function () {")
     end = source.index("  const escapeHtml")
     code = source[start:end] + "\nconsole.log(JSON.stringify(docs));"
-    result = subprocess.run([str(NODE), "-e", code], capture_output=True, text=True, encoding="utf-8", check=True)
+    extract_file = ROOT / "tmp" / "extract_requirements.js"
+    extract_file.write_text(code, encoding="utf-8")
+    result = subprocess.run([str(NODE), str(extract_file)], capture_output=True, text=True, encoding="utf-8", check=True)
     return json.loads(result.stdout)
 
 
 def add_backend_details(doc):
     docs = backend_docs()
-    add_heading(doc, "5.4 后台页面功能详细规范", 2)
+    add_heading(doc, "5.3.7 后台页面功能详细规范", 3)
     add_body(doc, "以下内容直接取自后台 HTML 原型的页面需求说明配置。未在页面中定义的功能不作扩展。")
     for index, item in enumerate(docs.values(), 1):
-        add_heading(doc, f"5.4.{index} {item['title']}", 3)
+        add_heading(doc, f"5.3.7.{index} {item['title']}", 3)
         for title, content in item["sections"]:
             if content is None or content == "":
                 content = "无"
@@ -183,7 +187,7 @@ def add_backend_details(doc):
 
 
 def add_big_screen_details(doc):
-    add_heading(doc, "5.3 大屏页面功能详细规范", 2)
+    add_heading(doc, "5.3.6 大屏页面功能详细规范", 3)
     page_files = [
         ("总览", "overview.html"), ("机电系统", "mep.html"), ("弱电系统", "weak-electric.html"),
         ("能源管理", "energy.html"), ("运营管理", "operation.html")
@@ -192,7 +196,7 @@ def add_big_screen_details(doc):
         tree = html.fromstring((ROOT / "Big Screen" / filename).read_text(encoding="utf-8"))
         matches = tree.xpath('//template[@id="requirementDocument"]')
         template = matches[0] if matches else None
-        add_heading(doc, f"5.3.{idx} {name}", 3)
+        add_heading(doc, f"5.3.6.{idx} {name}", 3)
         if not template:
             add_body(doc, "【待补充】")
             continue
@@ -201,7 +205,12 @@ def add_big_screen_details(doc):
             headings = section.xpath('.//h2|.//h3|.//h4')
             heading = headings[0] if headings else None
             title = " ".join(heading.itertext()).strip() if heading is not None else "需求内容"
-            add_heading(doc, title, 3)
+            p = doc.add_paragraph()
+            p.paragraph_format.keep_with_next = True
+            run = p.add_run(title)
+            run.bold = True
+            run.font.name = "黑体"
+            run._element.rPr.rFonts.set(qn("w:eastAsia"), "黑体")
             for table in section.xpath('.//table'):
                 rows = [[" ".join(cell.itertext()).strip() for cell in row.xpath('./th|./td')] for row in table.xpath('.//tr')]
                 table.getparent().remove(table)

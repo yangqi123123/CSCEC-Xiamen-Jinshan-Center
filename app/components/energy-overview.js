@@ -19,6 +19,9 @@
     pickerSelecting: "start",
     pickerDraft: null,
     pickerViewDate: new Date(2026, 8, 1),
+    detailMeterId: "",
+    detailRows: [],
+    detailPage: 1,
   };
 
   function escapeHtml(value) {
@@ -62,6 +65,17 @@
 
   function inputValue(key) {
     return state.filters[key] || "";
+  }
+
+  function isDeviceView(view = state.view) {
+    return view === "device" || view === "master" || view === "sub";
+  }
+
+  function renderViewButtons() {
+    const views = state.config.supportsMeterHierarchy
+      ? [["floor", "按楼层"], ["master", "按设备（总表）"], ["sub", "按设备（分表）"]]
+      : [["floor", "按楼层"], ["device", "按设备"]];
+    return views.map(([value, label]) => `<button class="energy-switch-button ${state.view === value ? "active" : ""}" type="button" data-energy-view="${value}">${label}</button>`).join("");
   }
 
   function pad2(value) {
@@ -194,8 +208,7 @@
           <div class="energy-title-wrap">
             <h1 class="energy-title">${escapeHtml(config.title)}</h1>
             <div class="energy-view-switch" role="tablist" aria-label="统计视图">
-              <button class="energy-switch-button ${state.view === "floor" ? "active" : ""}" type="button" data-energy-view="floor">按楼层</button>
-              <button class="energy-switch-button ${state.view === "device" ? "active" : ""}" type="button" data-energy-view="device">按设备</button>
+              ${renderViewButtons()}
             </div>
           </div>
           <div class="energy-range" aria-label="时间范围">
@@ -208,10 +221,10 @@
         </div>
         <div class="energy-filter-row">
           <div class="energy-filter-fields energy-filter-layout" id="energyFilterLayout">
-            ${config.filterFields.filter((field) => !field.deviceOnly || state.view === "device").map((field, index) => renderFilterField(field, index)).join("")}
+            ${config.filterFields.filter((field) => !field.deviceOnly || isDeviceView()).map((field, index) => renderFilterField(field, index)).join("")}
           </div>
           <div class="energy-toolbar-actions">
-            ${config.filterFields.filter((field) => !field.deviceOnly || state.view === "device").length > 4 ? '<button class="btn btn-ghost" type="button" data-energy-action="toggle-filters">展开 <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>' : ""}
+            ${config.filterFields.filter((field) => !field.deviceOnly || isDeviceView()).length > 4 ? '<button class="btn btn-ghost" type="button" data-energy-action="toggle-filters">展开 <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>' : ""}
             <button class="btn btn-secondary" type="button" data-energy-action="reset">重置</button>
             <button class="btn btn-primary" type="button" data-energy-action="search">搜索</button>
           </div>
@@ -230,6 +243,8 @@
   }
 
   function getRowsForView() {
+    if (state.view === "master") return state.config.rows.filter((row) => row.view === "device" && row.meterLevel === "master");
+    if (state.view === "sub") return state.config.rows.filter((row) => row.view === "device" && row.meterLevel === "sub");
     return state.config.rows.filter((row) => row.view === state.view);
   }
 
@@ -241,11 +256,17 @@
     return inRange && Object.entries(state.filters).every(([key, value]) => !value || String(row[key] || "").includes(value));
   }
 
+  function filterRows(rows, { meterLevel, parentMeterId } = {}) {
+    return rows.filter((row) => matchesFilters(row)
+      && (!meterLevel || row.meterLevel === meterLevel)
+      && (!parentMeterId || row.parentMeterId === parentMeterId));
+  }
+
   function aggregateRows(rows) {
     const groups = new Map();
     rows.forEach((row) => {
       const period = getPeriodKey(row.date, state.granularity);
-      const dimensions = state.view === "device" ? `${row.deviceName}|${row.deviceNo}|${row.floor}|${row.area}` : `${row.building}|${row.floor}|${row.area}`;
+      const dimensions = row.view === "device" ? `${row.deviceName}|${row.deviceNo}|${row.floor}|${row.area}` : `${row.building}|${row.floor}|${row.area}`;
       const key = `${period}|${dimensions}`;
       const existing = groups.get(key);
       if (existing) existing.value += row.value;
@@ -274,11 +295,13 @@
   }
 
   function getColumns() {
-    return state.view === "device" ? state.config.deviceColumns : state.config.floorColumns;
+    if (state.view === "master") return state.config.masterDeviceColumns;
+    if (state.view === "sub") return state.config.subDeviceColumns;
+    return isDeviceView() ? state.config.deviceColumns : state.config.floorColumns;
   }
 
-  function getCellValue(row, column, index) {
-    if (column === "序号") return index + 1 + (state.page - 1) * PAGE_SIZE;
+  function getCellValue(row, column, index, rowOffset = (state.page - 1) * PAGE_SIZE) {
+    if (column === "序号") return index + 1 + rowOffset;
     if (column === "时间" || column === "获取时间") return formatPeriodLabel(row.period || row.date, state.granularity);
     if (column === "楼栋") return row.building;
     if (column === "楼层") return row.floor;
@@ -286,6 +309,7 @@
     if (column === "设备名称") return row.deviceName;
     if (column === "设备编号") return row.deviceNo;
     if (column === "用途") return row.usage;
+    if (column === "用电分项") return row.powerSubitem;
     if (column.startsWith("当前读数")) return formatNumber(row.currentReading);
     if (column.startsWith("上次读数")) return formatNumber(row.previousReading);
     if (/量|电量|水量|冷量|发电量/.test(column)) return formatNumber(row.value);
@@ -300,7 +324,7 @@
       body.innerHTML = `<tr><td colspan="${columns.length}"><div class="energy-empty"><span class="energy-empty-icon"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i></span><span>暂无数据</span></div></td></tr>`;
       return;
     }
-    body.innerHTML = rows.map((row, index) => `<tr>${columns.map((column) => `<td>${escapeHtml(getCellValue(row, column, index))}</td>`).join("")}</tr>`).join("");
+    body.innerHTML = rows.map((row, index) => `<tr>${columns.map((column) => column === "操作" ? `<td><button class="table-action" type="button" data-energy-action="meter-detail" data-meter-id="${escapeHtml(row.meterId)}">详情</button></td>` : `<td>${escapeHtml(getCellValue(row, column, index))}</td>`).join("")}</tr>`).join("");
   }
 
   function renderPagination(total) {
@@ -311,13 +335,47 @@
   }
 
   function renderData() {
-    const sourceRows = getRowsForView().filter(matchesFilters);
+    const sourceRows = filterRows(getRowsForView());
     const aggregatedRows = aggregateRows(sourceRows);
     state.filteredRows = aggregatedRows;
     const start = (state.page - 1) * PAGE_SIZE;
     renderSummary(sourceRows);
     renderTable(aggregatedRows.slice(start, start + PAGE_SIZE));
     renderPagination(aggregatedRows.length);
+  }
+
+  function renderDetailPagination(total) {
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    state.detailPage = Math.min(state.detailPage, totalPages);
+    const pageButtons = Array.from({ length: Math.min(totalPages, 6) }, (_, index) => index + 1).map((page) => `<button class="energy-page-button ${page === state.detailPage ? "active" : ""}" type="button" data-energy-detail-page="${page}">${page}</button>`).join("");
+    return `<div class="energy-pagination energy-meter-detail-pagination"><span>共 ${total} 条</span><div class="energy-pagination-controls"><button class="energy-page-button" type="button" data-energy-detail-page-action="prev" ${state.detailPage === 1 ? "disabled" : ""}>‹</button>${pageButtons}${totalPages > 6 ? "<span>...</span>" : ""}<button class="energy-page-button" type="button" data-energy-detail-page-action="next" ${state.detailPage === totalPages ? "disabled" : ""}>›</button></div></div>`;
+  }
+
+  function renderMeterDetail(master, rows) {
+    const columns = state.config.subDeviceColumns;
+    const range = `${displayRangeValue(state.start, state.granularity)} ~ ${displayRangeValue(state.end, state.granularity, true)}`;
+    const start = (state.detailPage - 1) * PAGE_SIZE;
+    const visibleRows = rows.slice(start, start + PAGE_SIZE);
+    const tableBody = visibleRows.length
+      ? visibleRows.map((row, index) => `<tr>${columns.map((column) => `<td>${escapeHtml(getCellValue(row, column, index, start))}</td>`).join("")}</tr>`).join("")
+      : `<tr><td colspan="${columns.length}"><div class="energy-meter-empty">暂无分表统计数据</div></td></tr>`;
+    return `<div class="energy-meter-detail"><div class="energy-meter-meta"><div><span>总表名称</span><strong>${escapeHtml(master.deviceName)}</strong></div><div><span>设备编号</span><strong>${escapeHtml(master.deviceNo)}</strong></div><div><span>统计周期</span><strong>${PERIOD_LABELS[state.granularity]}</strong></div><div><span>时间范围</span><strong>${escapeHtml(range)}</strong></div></div><div class="energy-meter-detail-head"><h3>关联分表统计数据</h3></div><div class="energy-meter-detail-table-wrap"><table class="table energy-meter-detail-table"><thead><tr>${columns.map((column) => `<th>${escapeHtml(column)}</th>`).join("")}</tr></thead><tbody>${tableBody}</tbody></table></div>${renderDetailPagination(rows.length)}</div>`;
+  }
+
+  function refreshMeterDetail() {
+    const master = state.config.rows.find((row) => row.view === "device" && row.meterLevel === "master" && row.meterId === state.detailMeterId);
+    const drawerBody = document.getElementById("drawerBody");
+    if (master && drawerBody) drawerBody.innerHTML = renderMeterDetail(master, state.detailRows);
+  }
+
+  function openMeterDetail(meterId) {
+    const master = state.config.rows.find((row) => row.view === "device" && row.meterLevel === "master" && row.meterId === meterId);
+    if (!master || !window.openAppDrawer) return;
+    const relatedRows = aggregateRows(filterRows(state.config.rows.filter((row) => row.view === "device"), { meterLevel: "sub", parentMeterId: master.meterId }));
+    state.detailMeterId = master.meterId;
+    state.detailRows = relatedRows;
+    state.detailPage = 1;
+    window.openAppDrawer({ title: "关联分表详情", body: renderMeterDetail(master, relatedRows) });
   }
 
   function setGranularity(granularity) {
@@ -400,7 +458,7 @@
   }
 
   function downloadCsv() {
-    const columns = getColumns();
+    const columns = getColumns().filter((column) => column !== "操作");
     const lines = [columns, ...state.filteredRows.map((row, index) => columns.map((column) => getCellValue(row, column, index)))];
     const csv = `\uFEFF${lines.map((line) => line.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\n")}`;
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
@@ -422,6 +480,8 @@
       const action = event.target.closest("[data-energy-action]");
       const page = event.target.closest("[data-energy-page]");
       const pageAction = event.target.closest("[data-energy-page-action]");
+      const detailPage = event.target.closest("[data-energy-detail-page]");
+      const detailPageAction = event.target.closest("[data-energy-detail-page-action]");
       const pickerOpen = event.target.closest("[data-picker-open]");
       const pickerAction = event.target.closest("[data-picker-action]");
       const pickerDay = event.target.closest("[data-picker-day]");
@@ -444,6 +504,9 @@
       if (pickerMonth) { selectPickerRange(pickerMonth.dataset.pickerMonth); return; }
       if (pickerYear) { selectPickerRange(pickerYear.dataset.pickerYear); return; }
       if (pickerTime) { updatePickerTime(pickerTime.dataset.pickerScroll, pickerTime.dataset.pickerTimeUnit, pad2(pickerTime.dataset.pickerTimeValue)); return; }
+      if (action?.dataset.energyAction === "meter-detail") { openMeterDetail(action.dataset.meterId); return; }
+      if (detailPage) { state.detailPage = Number(detailPage.dataset.energyDetailPage); refreshMeterDetail(); return; }
+      if (detailPageAction) { const totalPages = Math.max(1, Math.ceil(state.detailRows.length / PAGE_SIZE)); state.detailPage = detailPageAction.dataset.energyDetailPageAction === "prev" ? Math.max(1, state.detailPage - 1) : Math.min(totalPages, state.detailPage + 1); refreshMeterDetail(); return; }
       if (view) { state.view = view.dataset.energyView; state.page = 1; renderToolbar(); renderData(); }
       if (granularity) setGranularity(granularity.dataset.energyGranularity);
       if (action?.dataset.energyAction === "toggle-filters") {

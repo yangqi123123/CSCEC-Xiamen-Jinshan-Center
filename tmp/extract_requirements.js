@@ -1,4 +1,4 @@
-(function () {
+
   const text = (title, entry, requirement, actions, source, state, stats, result, fields) => ({
     title,
     sections: [
@@ -197,25 +197,18 @@
     row("通知方式", "下拉", "是", "站内消息", "固定选项：站内消息。")
   ];
 
-  const energyOverviewFields = (includeUsage = false, supportsMeterHierarchy = false, includePowerSubitem = false) => [
-    row("统计视图", "切换按钮", "是", "按楼层", supportsMeterHierarchy ? "固定选项：按楼层、按设备（总表）、按设备（分表）。" : "固定选项：按楼层、按设备。"),
+  const energyOverviewFields = (includeUsage = false) => [
+    row("统计视图", "切换按钮", "是", "按楼层", "固定选项：按楼层、按设备。"),
     row("时间粒度", "切换按钮", "是", "小时", "固定选项：小时、日、月、年；切换后时间范围和统计结果按对应粒度展示。"),
     row("时间范围", "日期时间范围", "是", "当前粒度默认范围", "开始时间不得晚于结束时间；小时粒度选择日期及时分秒，日、月、年粒度选择对应范围。"),
     row("楼栋", "下拉", "否", "请选择", "来源：楼栋管理。"),
     row("楼层", "下拉", "否", "请选择", "来源：楼层管理。"),
-    row("设备名称", "文本", "否", "空", "仅设备视图显示，可按设备名称或设备ID筛选；页面未设置字符长度限制。"),
+    row("设备名称", "文本", "否", "空", "仅按设备视图显示，可按设备名称或设备ID筛选；页面未设置字符长度限制。"),
     row("房源", "文本", "否", "空", "可按房源名称筛选；页面未设置字符长度限制。"),
-    ...(includeUsage ? [row("用途", "文本", "否", "空", "仅设备视图显示，可按设备用途筛选；页面未设置字符长度限制。")] : []),
-    ...(includePowerSubitem ? [row("用电分项", "列表展示", "否", "-", "仅按设备（分表）及关联分表详情展示；固定选项：照明、插座、空调、动力设备。")] : []),
-    ...(supportsMeterHierarchy ? [
-      row("设备层级", "数据关系", "是", "总表或分表", "每个分表最多关联一个同能源类型总表，一个总表可关联多个分表。"),
-      row("关联分表详情", "右侧抽屉", "否", "-", "仅总表列表提供详情；展示当前时间粒度、时间范围及筛选条件内的关联分表统计数据，列表下方按每页10条独立分页。")
-    ] : []),
+    ...(includeUsage ? [row("用途", "文本", "否", "空", "仅按设备视图显示，可按设备用途筛选；页面未设置字符长度限制。")] : []),
     row("分页", "分页", "否", "第1页，每页10条", "默认第1页，每页10条，页码≥1。")
   ];
   const setEnergyOverviewDoc = (key, energyName, totalLabel, categorySuffix, unit, includeUsage = false) => {
-    const supportsMeterHierarchy = key !== "energy.photovoltaic";
-    if (supportsMeterHierarchy) docs[key].sections[2][1] = "可切换按楼层、按设备（总表）、按设备（分表）视图和小时、日、月、年粒度；选择起止时间并设置筛选条件后搜索，支持重置、展开/收起、分页和导出。总表列表提供详情操作，点击后通过右侧抽屉查看当前查询范围内关联的分表统计数据；总表导出不包含操作列。";
     docs[key].sections[3][1] = `${energyName}数据取自对应计量设备。累计表计的本次用量=当前读数-上次读数；数据可按每小时采集一次进行存储，日、月、年用量由对应周期内的小时用量汇总。楼栋、楼层和房源取自项目管理，设备取自设备管理。`;
     docs[key].sections[4][1] = null;
     docs[key].sections[5][1] = [
@@ -225,7 +218,7 @@
       `4、3号楼${categorySuffix}：汇总当前统计视图、时间范围及筛选条件内归属3号楼的${energyName}量，单位${unit}。`,
       `5、4号楼${categorySuffix}：汇总当前统计视图、时间范围及筛选条件内归属4号楼的${energyName}量，单位${unit}。`
     ].join("\n");
-    docs[key].sections[7][1] = energyOverviewFields(includeUsage, supportsMeterHierarchy, key === "energy.electricity");
+    docs[key].sections[7][1] = energyOverviewFields(includeUsage);
   };
   setEnergyOverviewDoc("energy.electricity", "用电", "总电量", "用电", "kW·h", true);
   setEnergyOverviewDoc("energy.water", "用水", "总水量", "用水", "m³");
@@ -289,24 +282,5 @@
     row("系统消息标题", "列表展示", "否", "-", "展示工单、报警或系统通知标题。"),
     row("系统消息时间", "列表展示", "否", "-", "展示消息产生时间。")
   ]);
-  const escapeHtml = (value) => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
-  function renderSections(sections) {
-    return sections.map(([title, content]) => {
-      if (content === null || content === undefined || content === "") return "";
-      if (title !== "字段说明") return `<section class="requirement-section"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(content).replaceAll("\n", "<br>")}</p></section>`;
-      const rows = content.map((cells) => `<tr>${cells.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("");
-      return `<section class="requirement-section"><h3>字段说明</h3><table class="requirement-table"><thead><tr><th>字段名称</th><th>类型</th><th>是否必填</th><th>默认值</th><th>取值范围</th></tr></thead><tbody>${rows}</tbody></table></section>`;
-    }).join("");
-  }
-  document.addEventListener("DOMContentLoaded", () => {
-    if (!window.openAppDrawer) return;
-    const doc = docs[document.body.dataset.menuKey] || docs.home;
-    const button = document.createElement("button");
-    button.className = "requirement-fab";
-    button.type = "button";
-    button.setAttribute("aria-label", "打开需求说明");
-    button.innerHTML = '<i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="requirement-tooltip">需求说明</span>';
-    button.addEventListener("click", () => window.openAppDrawer({ title: `${doc.title} · 需求说明`, subtitle: "页面需求文档", body: `<div class="requirement-document">${renderSections(doc.sections)}</div>` }));
-    document.body.append(button);
-  });
-})();
+
+console.log(JSON.stringify(docs));
