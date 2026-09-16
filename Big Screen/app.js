@@ -47,6 +47,60 @@
       });
       const alarmStatisticsMarkup = '<div class="alarm-stat-toolbar"><span>统计周期</span><button class="active" type="button" data-alarm-period="today">今日</button><button type="button" data-alarm-period="week">本周</button><button type="button" data-alarm-period="month">本月</button><button type="button" data-alarm-period="year">本年</button></div><div class="alarm-stat-grid"><section><h3>报警趋势</h3><div class="alarm-trend-chart"><span class="alarm-chart-unit">单位（次）</span><svg viewBox="0 0 480 180" role="img" aria-label="报警趋势折线图"><g class="alarm-chart-grid"><line x1="48" y1="35" x2="464" y2="35"></line><line x1="48" y1="82" x2="464" y2="82"></line><line x1="48" y1="129" x2="464" y2="129"></line></g><g class="alarm-chart-y"><text x="20" y="39">10</text><text x="26" y="86">5</text><text x="26" y="133">0</text></g><path class="alarm-chart-area" d="M48 116 C90 108 118 64 154 77 S220 99 258 72 S320 84 360 59 S420 68 464 48 L464 129 L48 129 Z"></path><path class="alarm-chart-line" d="M48 116 C90 108 118 64 154 77 S220 99 258 72 S320 84 360 59 S420 68 464 48"></path><g class="alarm-chart-x" id="alarmTrendAxis"></g></svg></div></section><section><h3>报警类型</h3><div class="alarm-type-layout"><div class="alarm-donut"><strong>11<small>报警总数</small></strong></div><div class="alarm-type-legend"><span><i class="dot red"></i><b>设备属性</b><em>9个</em><strong>81.82%</strong></span><span><i class="dot orange"></i><b>设备离线</b><em>2个</em><strong>18.18%</strong></span></div></div></section><section><h3>报警排行</h3><div class="alarm-rank-head"><span>单位（次）</span><div><button class="active" type="button" data-rank-mode="space">空间</button><button type="button" data-rank-mode="system">系统</button></div></div><div class="alarm-bars" id="alarmRankingBars"></div></section><section><h3>报警状态</h3><div class="alarm-type-layout"><div class="alarm-donut status"><strong>11<small>报警总数</small></strong></div><div class="alarm-type-legend status-legend"><span><i class="dot pending"></i><b>未处理</b><em>6个</em><strong>54.55%</strong></span><span><i class="dot processing"></i><b>处理中</b><em>3个</em><strong>27.27%</strong></span><span><i class="dot handled"></i><b>已处理</b><em>2个</em><strong>18.18%</strong></span></div></div></section><section><h3>报警系统分布</h3><div class="alarm-system-grid"><span class="hvac"><i class="fa-solid fa-wind"></i><b>暖通系统</b><em>3</em></span><span class="electric"><i class="fa-solid fa-bolt"></i><b>电气系统</b><em>2</em></span><span class="water"><i class="fa-solid fa-faucet-drip"></i><b>给排水系统</b><em>2</em></span><span class="fire"><i class="fa-solid fa-fire-flame-curved"></i><b>消防系统</b><em>2</em></span><span class="lift"><i class="fa-solid fa-elevator"></i><b>电梯系统</b><em>1</em></span><span class="security"><i class="fa-solid fa-shield-halved"></i><b>安防系统</b><em>1</em></span></div></section><section><h3>报警处理</h3><div class="alarm-type-layout"><div class="alarm-donut handled"><strong>5<small>处理报警</small></strong></div><div class="alarm-type-legend"><span><i class="dot processing"></i><b>转工单</b><em>2个</em><strong>40%</strong></span><span><i class="dot orange"></i><b>误报</b><em>1个</em><strong>20%</strong></span><span><i class="dot handled"></i><b>直接处理</b><em>2个</em><strong>40%</strong></span></div></div></section></div>';
       document.querySelectorAll('.alarm-statistics').forEach((pane) => { pane.innerHTML = alarmStatisticsMarkup; });
+      if (pageKey === 'overview') {
+        const peopleStatisticsData = {
+          today: { office: 683, visitors: 46, labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'], values: [2, 6, 4, 7, 6, 9, 8] },
+          week: { office: 3258, visitors: 286, labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'], values: [4, 7, 6, 8, 7, 9, 8] },
+          month: { office: 12860, visitors: 1128, labels: ['1日', '5日', '9日', '13日', '17日', '21日', '25日', '29日'], values: [2, 5, 6, 4, 7, 6, 9, 8] },
+          year: { office: 148260, visitors: 13582, labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'], values: [3, 5, 7, 6, 5, 6, 8, 7, 9, 10, 9, 10] }
+        };
+        const renderPeopleStatistics = (period) => {
+          const data = peopleStatisticsData[period] || peopleStatisticsData.today;
+          const total = data.office + data.visitors;
+          const officeRatio = total ? Math.round((data.office / total) * 100) : 0;
+          const officeCount = document.getElementById('peopleOfficeCount');
+          const visitorCount = document.getElementById('peopleVisitorCount');
+          const totalCount = document.getElementById('peopleTotalCount');
+          const ring = document.getElementById('peopleTypeRing');
+          if (officeCount) officeCount.textContent = data.office.toLocaleString('zh-CN');
+          if (visitorCount) visitorCount.textContent = data.visitors.toLocaleString('zh-CN');
+          if (totalCount) {
+            totalCount.textContent = total.toLocaleString('zh-CN');
+            totalCount.style.fontSize = total >= 100000 ? '12px' : total >= 10000 ? '15px' : '';
+          }
+          if (ring) ring.style.background = `conic-gradient(#59e4ea 0 ${officeRatio}%, #1d6ea6 ${officeRatio}% 100%)`;
+          const left = 30;
+          const right = 312;
+          const top = 15;
+          const bottom = 71;
+          const maxValue = Math.max(10, ...data.values);
+          const points = data.values.map((value, index) => ({
+            x: left + (right - left) * index / Math.max(data.values.length - 1, 1),
+            y: bottom - (bottom - top) * value / maxValue
+          }));
+          const linePath = points.map((point, index) => `${index ? 'L' : 'M'}${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ');
+          const trendLine = document.getElementById('peopleTrendLine');
+          const trendArea = document.getElementById('peopleTrendArea');
+          if (trendLine) trendLine.setAttribute('d', linePath);
+          if (trendArea) trendArea.setAttribute('d', `${linePath} L${right} ${bottom} L${left} ${bottom} Z`);
+          const pointsGroup = document.getElementById('peopleTrendPoints');
+          if (pointsGroup) pointsGroup.innerHTML = points.map((point) => `<circle cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="2"></circle>`).join('');
+          const axis = document.getElementById('peopleTrendAxis');
+          if (axis) axis.innerHTML = data.labels.map((label, index) => {
+            const x = left + (right - left) * index / Math.max(data.labels.length - 1, 1);
+            return `<text x="${x.toFixed(1)}" y="91" text-anchor="middle">${label}</text>`;
+          }).join('');
+        };
+        document.querySelectorAll('[data-people-period]').forEach((button) => button.addEventListener('click', () => {
+          document.querySelectorAll('[data-people-period]').forEach((item) => {
+            const active = item === button;
+            item.classList.toggle('active', active);
+            item.setAttribute('aria-selected', String(active));
+          });
+          renderPeopleStatistics(button.dataset.peoplePeriod);
+        }));
+        renderPeopleStatistics('today');
+      }
       const logoutButton = document.querySelector('.header-icon[aria-label="退出系统"]');
       const logoutConfirmModal = document.getElementById('logoutConfirmModal');
       const profileButton = document.getElementById('profileButton');

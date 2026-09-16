@@ -69,19 +69,30 @@
 
           <section class="info-panel people-panel">
             <h2 class="panel-title">人员统计<span></span></h2>
-            <div class="people-main">
-              <div class="people-side"><label>办公人员</label><strong>683</strong></div>
-              <div class="people-ring"><div><strong>683</strong><small>人员总数</small></div></div>
-              <div class="people-side"><label>访客</label><strong>0</strong></div>
+            <div class="people-statistics-body">
+              <div class="people-period-tabs" role="tablist" aria-label="人员统计周期"><button class="active" type="button" data-people-period="today" aria-selected="true">今日</button><button type="button" data-people-period="week" aria-selected="false">本周</button><button type="button" data-people-period="month" aria-selected="false">本月</button><button type="button" data-people-period="year" aria-selected="false">本年</button></div>
+              <h3 class="people-section-title">人员类型</h3>
+              <div class="people-main">
+                <div class="people-side"><label>办公人员</label><strong id="peopleOfficeCount">683</strong></div>
+                <div class="people-ring" id="peopleTypeRing"><div><strong id="peopleTotalCount">683</strong><small>人员总数</small></div></div>
+                <div class="people-side"><label>访客</label><strong id="peopleVisitorCount">0</strong></div>
+              </div>
+              <h3 class="people-section-title">通行次数</h3>
+              <div class="people-trend-chart"><span>单位（次）</span><svg viewBox="0 0 320 100" role="img" aria-label="人员通行次数折线图"><g class="people-chart-grid"><line x1="30" y1="15" x2="312" y2="15"></line><line x1="30" y1="43" x2="312" y2="43"></line><line x1="30" y1="71" x2="312" y2="71"></line></g><g class="people-chart-y"><text x="8" y="18">10</text><text x="14" y="46">5</text><text x="14" y="74">0</text></g><path class="people-chart-area" id="peopleTrendArea"></path><path class="people-chart-line" id="peopleTrendLine"></path><g class="people-chart-points" id="peopleTrendPoints"></g><g class="people-chart-x" id="peopleTrendAxis"></g></svg></div>
             </div>
           </section>
 
-          <section class="info-panel mep-panel parking-panel">
-            <h2 class="panel-title">停车概览<span></span></h2>
-            <div class="parking-body"><div class="parking-metric-grid"><div class="parking-metric"><i class="fa-solid fa-right-to-bracket"></i><span>西侧入场数<b>120</b></span></div><div class="parking-metric"><i class="fa-solid fa-right-from-bracket"></i><span>西侧离场数<b>135</b></span></div><div class="parking-metric"><i class="fa-solid fa-right-to-bracket"></i><span>南侧入场数<b>95</b></span></div><div class="parking-metric"><i class="fa-solid fa-right-from-bracket"></i><span>南侧离场数<b>120</b></span></div><div class="parking-metric"><i class="fa-solid fa-percent"></i><span>车位占用率<b>2%</b></span></div></div><div class="parking-section-title">剩余车位</div><div class="parking-bars"><div class="parking-bar"><span>B1</span><div class="parking-bar-track"><span style="width:38%"></span></div><b>54</b></div><div class="parking-bar"><span>B2</span><div class="parking-bar-track"><span style="width:92%"></span></div><b>145</b></div><div class="parking-bar"><span>B3</span><div class="parking-bar-track"><span style="width:86%"></span></div><b>134</b></div></div></div>
+          <section class="info-panel vehicle-panel">
+            <h2 class="panel-title">车辆统计<span></span></h2>
+            <div class="vehicle-body">
+              <div class="vehicle-total"><div class="vehicle-total-icon"><i class="fa-solid fa-square-parking"></i></div><span>剩余车位 / 车位总数</span><strong>199<small>/199</small></strong></div>
+              <div class="vehicle-floor-grid">
+                <div class="vehicle-floor"><div><span>B1</span><b>54<small>/54</small></b></div><div class="vehicle-ring" style="--value:100%"><i></i></div></div>
+                <div class="vehicle-floor"><div><span>B2</span><b>145<small>/145</small></b></div><div class="vehicle-ring" style="--value:100%"><i></i></div></div>
+              </div>
+              <div class="vehicle-detail-grid"><div><span>普通车位</span><b>22</b></div><div><span>使用中</span><b>0</b></div><div><span>空余</span><b>22</b></div></div>
+            </div>
           </section>
-          <section class="info-panel mep-panel parking-panel"><h2 class="panel-title">AGV车位<span></span></h2><div class="parking-body"><div class="parking-card-grid"><div class="parking-card"><div>车位总数<b>22</b></div><div class="accent">剩余车位<b>22</b></div></div></div></div></section>
-          <section class="info-panel mep-panel parking-panel"><h2 class="panel-title">机械车位<span></span></h2><div class="parking-body"><div class="parking-card-grid"><div class="parking-card"><div>机械车位总数<b>43</b></div><div class="accent">使用中<b>2</b></div></div><div class="parking-card"><div>空闲<b>41</b></div><div class="accent">已占用<b>0</b></div></div></div></div></section>
         </aside>
 <section class="building-scene image-mode" aria-label="中建厦门金山财富中心建筑效果图">
           <img class="building-reference" src="assets/public-building-centered.png" alt="中建厦门金山财富中心建筑效果图">
