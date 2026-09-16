@@ -273,6 +273,19 @@
       font-weight: 600;
     }
 
+    .login-error {
+      min-height: 18px;
+      margin: 8px 0 -10px;
+      color: #F53F57;
+      font-size: 12px;
+      line-height: 18px;
+      visibility: hidden;
+    }
+
+    .login-error.show {
+      visibility: visible;
+    }
+
     .login-button {
       width: 100%;
       height: 42px;
@@ -285,6 +298,19 @@
       text-decoration: none;
       background: linear-gradient(90deg, #59B8FF 0%, #3670FF 100%);
       box-shadow: 0 10px 18px rgba(54, 112, 255, 0.18);
+    }
+
+    .login-demo-tip {
+      margin: 12px 0 0;
+      color: #65758A;
+      font-size: 12px;
+      line-height: 20px;
+      text-align: center;
+    }
+
+    .login-demo-tip strong {
+      color: #364A60;
+      font-weight: 600;
     }
 
     @media (max-width: 1180px) {
@@ -349,11 +375,11 @@
       <h2 class="login-title"><span>🥳</span>欢迎登录</h2>
       <label class="login-field">
         <span class="field-icon">♙</span>
-        <input placeholder="请输入用户名">
+        <input id="usernameInput" autocomplete="username" placeholder="请输入用户名">
       </label>
       <label class="login-field password-field">
         <span class="field-icon">▣</span>
-        <input id="passwordInput" type="password" placeholder="请输入密码">
+        <input id="passwordInput" type="password" autocomplete="current-password" placeholder="请输入密码">
         <button id="passwordToggle" class="password-toggle" type="button" aria-label="显示密码">
           <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
@@ -367,17 +393,25 @@
           </svg>
         </button>
       </label>
+      <p id="loginError" class="login-error" role="alert" aria-live="polite">用户名/密码输入错误</p>
       <div class="login-options">
         <label><input type="checkbox"> 记住密码</label>
       </div>
       <a id="loginButton" class="login-button" href="web/pages/home/home.html">登录</a>
+      <p class="login-demo-tip">原型演示账号：<strong>admin</strong>&nbsp;&nbsp;密码：<strong>zjsj@2026</strong></p>
     </section>
   </main>
   <script>
+    const usernameInput = document.getElementById("usernameInput");
     const passwordInput = document.getElementById("passwordInput");
     const passwordToggle = document.getElementById("passwordToggle");
     const loginButton = document.getElementById("loginButton");
+    const loginError = document.getElementById("loginError");
     const loginTabs = [...document.querySelectorAll("[data-login-target]")];
+    const demoCredentials = {
+      username: "admin",
+      password: "zjsj@2026",
+    };
     const loginTargets = {
       screen: "Big Screen/overview.html",
       admin: "web/pages/home/home.html",
@@ -398,6 +432,38 @@
           item.setAttribute("aria-selected", String(selected));
         });
         loginButton.href = loginTargets[tab.dataset.loginTarget];
+      });
+    });
+
+    const hideLoginError = () => {
+      loginError.classList.remove("show");
+    };
+
+    const submitLogin = () => {
+      const credentialsValid =
+        usernameInput.value.trim() === demoCredentials.username &&
+        passwordInput.value === demoCredentials.password;
+
+      if (!credentialsValid) {
+        loginError.classList.add("show");
+        return;
+      }
+
+      window.location.href = loginButton.href;
+    };
+
+    loginButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      submitLogin();
+    });
+
+    [usernameInput, passwordInput].forEach((input) => {
+      input.addEventListener("input", hideLoginError);
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          submitLogin();
+        }
       });
     });
   </script>
