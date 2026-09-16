@@ -17,7 +17,7 @@
   </div></main></div>
   <script src="../../../app/config/menu.js?v=project-1"></script><script src="../../../app/components/sidebar.js?v=project-1"></script><script src="../../../app/components/header.js?v=project-1"></script><script src="../../../app/components/drawer.js"></script><script src="../../../app/components/requirement.js"></script>
   <script>
-    const floors=[{id:1,project:"厦门金山财富中心",building:"1号楼",name:"一层",code:"1",type:"标准层",plan:"",created:"2026-09-02 11:03:12",note:"办公大堂及商业配套"},{id:2,project:"厦门金山财富中心",building:"1号楼",name:"二层",code:"2",type:"标准层",plan:"",created:"2026-09-02 11:04:28",note:"办公层"},{id:3,project:"厦门金山财富中心",building:"1号楼",name:"B1层",code:"B1",type:"地下层",plan:"",created:"2026-09-02 11:06:40",note:"停车及设备用房"},{id:4,project:"福州滨海新城项目",building:"A座",name:"设备层",code:"M1",type:"设备层",plan:"",created:"2026-08-16 17:12:05",note:"机电设备层"}];
+    const floors=[{id:1,project:"厦门金山财富中心",building:"1号楼",name:"一层",code:"1",type:"标准层",plan:"",created:"2026-09-02 11:03:12",note:"办公大堂及商业配套"},{id:2,project:"厦门金山财富中心",building:"1号楼",name:"二层",code:"2",type:"标准层",plan:"",created:"2026-09-02 11:04:28",note:"办公层"},{id:3,project:"厦门金山财富中心",building:"1号楼",name:"B1层",code:"B1",type:"地下层",plan:"",created:"2026-09-02 11:06:40",note:"停车及设备用房"}];
     floors.forEach((item)=>{item.type=item.type==="地下层"||item.type==="设备层"?"地下楼层":"地上楼层";});
     const body=document.getElementById("floorTableBody"),count=document.getElementById("floorCount");let filteredFloors=floors;
     const esc=(value)=>String(value??"").replace(/[&<>\"]/g,(char)=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[char]));
