@@ -250,13 +250,13 @@
       const systemData = {
         overview: { intro: '集中展示项目暖通、电气、给排水、消防、电梯、燃气、光伏及自然通风等机电系统运行状态，实现设备统一监测、故障预警和跨系统协同。', subs: [], total: 11521, online: 11232, alarms: 7, devices: buildingFloors.flatMap(({ id }) => ['1F', '2F', '3F', '4F', '5F'].map((floor) => `厦门金山财富中心${id}${floor}设备房`)) },
         hvac: { intro: '采用集中供冷系统，覆盖办公及公共区域；末端结合新风与热回收系统，实现温湿度调节、空气品质监测和高效节能运行。', subs: ['空调水系统', '空调末端系统', '空调风系统', '通风系统'], total: 1831, online: 1675, alarms: 3, devices: ['低区送风机房', '高区排风机房', '生活热交换机房', '空调循环泵', '新风机组', '冷却塔'] },
-        electric: { intro: '高低压配电系统互为备用，覆盖变配电房、动力设备和公共照明，实时监测电压、电流、功率及设备运行状态。', subs: ['高低压配电系统', '动力配电系统', '照明配电系统'], total: 765, online: 761, alarms: 1, devices: ['高压进线柜', '低压配电柜', '动力配电箱', '公共照明箱', '应急照明箱', '智能电表'] },
-        water: { intro: '给排水系统涵盖生活供水、污废水、雨水及回用水，结合水泵、水箱和液位监测设备，实现用水安全与节水管理。', subs: ['给水系统', '污废水系统', '雨水系统', '雨水回用系统'], total: 308, online: 308, alarms: 0, devices: ['给水泵', '热水水泵', '雨水供水泵', '污水提升泵', '液位传感器', '水质监测仪'] },
-        fire: { intro: '消防系统覆盖消火栓、喷淋、防排烟和电气火灾监控，接入消防控制中心，实现报警、联动和设备状态统一管理。', subs: ['防排烟系统', '消防水系统', '电气消防系统'], total: 5824, online: 5824, alarms: 0, devices: ['烟感探测器', '温感探测器', '手动报警按钮', '输入输出模块', '消火栓泵', '喷淋泵'] },
-        elevator: { intro: '电梯系统覆盖客梯、货梯、消防电梯及扶梯，实时采集楼层、方向、运行状态和故障信息，支持设备快速定位。', subs: ['低区', '中区', '高区', '观光梯', '穿梭梯', 'VIP', '货梯', '扶梯'], total: 28, online: 28, alarms: 0, devices: ['低区客梯01', '低区客梯02', '高区客梯01', '消防电梯', '货梯', '自动扶梯'] },
-        gas: { intro: '燃气系统服务商业厨房及配套区域，设置燃气表、泄漏报警和紧急切断装置，实现用气计量与安全联动。', subs: ['燃气系统'], total: 2, online: 2, alarms: 0, devices: ['1号楼1层燃气表', '1号楼1层燃气报警器'] },
-        solar: { intro: '屋顶布置光伏发电设备，系统监测逆变器、发电功率和累计发电量，为项目提供可再生能源运行数据。', subs: ['光伏系统'], total: 14, online: 8, alarms: 0, devices: ['西面光伏逆变器', '南面光伏逆变器', '东面光伏逆变器', '屋顶光伏逆变器', '1号楼光伏发电', '并网计量柜'] },
-        ventilation: { intro: '自然通风系统根据室内外温湿度、风速及空气品质自动判断启停条件，联动通风器改善室内环境并降低空调能耗。', subs: ['低区通风', '中区通风', '高区通风', '室外区'], total: 84, online: 80, alarms: 1, devices: ['低区电动通风器', '中区电动通风器', '高区电动通风器', '室外温湿度传感器', '风速传感器', '雨量传感器'] },
+        electric: { intro: '高低压配电系统互为备用，覆盖变配电房、动力设备和公共照明，实时监测电压、电流、功率及设备运行状态。', subs: ['高低压配电系统', '动力配电系统', '照明配电系统'], total: 765, online: 761, alarms: 3, devices: ['高压进线柜', '低压配电柜', '动力配电箱', '公共照明箱', '应急照明箱', '智能电表'] },
+        water: { intro: '给排水系统涵盖生活供水、污废水、雨水及回用水，结合水泵、水箱和液位监测设备，实现用水安全与节水管理。', subs: ['给水系统', '污废水系统', '雨水系统', '雨水回用系统'], total: 308, online: 308, alarms: 3, devices: ['给水泵', '热水水泵', '雨水供水泵', '污水提升泵', '液位传感器', '水质监测仪'] },
+        fire: { intro: '消防系统覆盖消火栓、喷淋、防排烟和电气火灾监控，接入消防控制中心，实现报警、联动和设备状态统一管理。', subs: ['防排烟系统', '消防水系统', '电气消防系统'], total: 5824, online: 5824, alarms: 3, devices: ['烟感探测器', '温感探测器', '手动报警按钮', '输入输出模块', '消火栓泵', '喷淋泵'] },
+        elevator: { intro: '电梯系统覆盖客梯、货梯、消防电梯及扶梯，实时采集楼层、方向、运行状态和故障信息，支持设备快速定位。', subs: ['低区', '中区', '高区', '观光梯', '穿梭梯', 'VIP', '货梯', '扶梯'], total: 28, online: 28, alarms: 3, devices: ['低区客梯01', '低区客梯02', '高区客梯01', '消防电梯', '货梯', '自动扶梯'] },
+        gas: { intro: '燃气系统服务商业厨房及配套区域，设置燃气表、泄漏报警和紧急切断装置，实现用气计量与安全联动。', subs: ['燃气系统'], total: 2, online: 2, alarms: 3, devices: ['1号楼1层燃气表', '1号楼1层燃气报警器'] },
+        solar: { intro: '屋顶布置光伏发电设备，系统监测逆变器、发电功率和累计发电量，为项目提供可再生能源运行数据。', subs: ['光伏系统'], total: 14, online: 8, alarms: 3, devices: ['西面光伏逆变器', '南面光伏逆变器', '东面光伏逆变器', '屋顶光伏逆变器', '1号楼光伏发电', '并网计量柜'] },
+        ventilation: { intro: '自然通风系统根据室内外温湿度、风速及空气品质自动判断启停条件，联动通风器改善室内环境并降低空调能耗。', subs: ['低区通风', '中区通风', '高区通风', '室外区'], total: 84, online: 80, alarms: 3, devices: ['低区电动通风器', '中区电动通风器', '高区电动通风器', '室外温湿度传感器', '风速传感器', '雨量传感器'] },
         'weak-overview': { intro: '弱电系统统一管理会议办公、智慧停车、综合安防和信息网络等系统，实现设备集中监测、场景联动和运行状态可视化。', subs: [], total: 1435, online: 1368, alarms: 10, devices: ['1F弱电间', '1F弱电间', '1F数据中心机房', '1F安防控制室'] },
         meeting: { intro: '会议办公系统提供会议室预约、智能音视频、信息发布和办公协同能力，支持会议场景统一控制。', subs: [], total: 94, online: 89, alarms: 0, devices: ['15F经理办公区', '31F会议室', '32F会议室', '多媒体会议终端'] },
         parking: { intro: '智慧停车系统管理车辆进出、车位引导、停车计费和机械车位设施，为地下车库提供实时运行数据。', subs: [], total: 198, online: 198, alarms: 0, devices: ['B1停车场', 'B2停车场', 'B3停车场', '机械车位控制器'] },
@@ -595,7 +595,7 @@
         const isWeakSystem = key.startsWith('weak-') || ['meeting', 'parking', 'security', 'network'].includes(key);
         const isMepSystem = !isOverview && !isWeakSystem;
         const defaultPanelData = { total: 94, online: 89, alarms: 0 };
-        const panelData = isOverview || isWeakSystem ? data : defaultPanelData;
+        const panelData = isOverview || isWeakSystem ? data : { ...defaultPanelData, alarms: data.alarms };
         const panelOnlineRate = isOverview ? 97 : isWeakSystem ? Math.round((data.online / data.total) * 100) : 95;
         const panelOfflineRate = 100 - panelOnlineRate;
         const offline = data.total - data.online;
@@ -658,8 +658,8 @@
         document.getElementById('mepOfflineRate').textContent = `${panelOfflineRate}%`;
         document.getElementById('mepFaultRate').textContent = `${Math.round((panelData.alarms / panelData.total) * 100)}%`;
         document.getElementById('mepAlarmCount').textContent = panelData.alarms;
-        document.getElementById('mepPendingAlarms').textContent = panelData.alarms;
-        document.getElementById('mepHandledAlarms').textContent = '0';
+        document.getElementById('mepPendingAlarms').textContent = Math.max(panelData.alarms - 1, 0);
+        document.getElementById('mepHandledAlarms').textContent = panelData.alarms > 0 ? '1' : '0';
         document.querySelector('.mep-donut:not(.offline)').style.background = `conic-gradient(#80e89a 0 ${panelOnlineRate}%, #1c7391 ${panelOnlineRate}% 100%)`;
         document.querySelector('.mep-donut.offline').style.background = `conic-gradient(#e9edf0 0 ${panelOfflineRate}%, #2b718e ${panelOfflineRate}% 100%)`;
         document.querySelectorAll('#systemSubnav button').forEach((button) => button.addEventListener('click', () => activateGroup('#systemSubnav button', button)));
@@ -679,8 +679,8 @@
         document.getElementById('mepOnlineRate').textContent = data.onlineRate;
         document.getElementById('mepOfflineRate').textContent = data.offlineRate;
         document.getElementById('mepAlarmCount').textContent = data.alarms;
-        document.getElementById('mepPendingAlarms').textContent = data.alarms;
-        document.getElementById('mepHandledAlarms').textContent = '0';
+        document.getElementById('mepPendingAlarms').textContent = Math.max(data.alarms - 1, 0);
+        document.getElementById('mepHandledAlarms').textContent = data.alarms > 0 ? '1' : '0';
         document.querySelectorAll('.mep-device-card').forEach((card, cardIndex) => {
           const base = data.devices[cardIndex % data.devices.length];
           const values = [base, base, 0, cardIndex === 0 ? data.alarms : 0];

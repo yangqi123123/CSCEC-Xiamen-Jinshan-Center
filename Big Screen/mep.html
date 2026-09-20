@@ -189,11 +189,11 @@
           <section class="info-panel mep-panel mep-alarm default-mep-panel">
             <h2 class="panel-title">设备报警<span></span></h2>
             <div class="mep-alarm-tabs" role="tablist" aria-label="设备报警统计周期"><button class="active" type="button" role="tab" aria-selected="true">今日</button><button type="button" role="tab" aria-selected="false">本周</button><button type="button" role="tab" aria-selected="false">本月</button><button type="button" role="tab" aria-selected="false">本年</button></div>
-            <div class="mep-alarm-summary"><div class="mep-alarm-count"><span id="mepAlarmCount">6</span><small>报警总数</small></div><div class="mep-alarm-status"><span>未处理 <b id="mepPendingAlarms">6</b></span><span>已处理 <b id="mepHandledAlarms">0</b></span></div></div>
+            <div class="mep-alarm-summary"><div class="mep-alarm-count"><span id="mepAlarmCount">6</span><small>报警总数</small></div><div class="mep-alarm-status"><span>未处理 <b id="mepPendingAlarms">5</b></span><span>已处理 <b id="mepHandledAlarms">1</b></span></div></div>
             <div class="mep-alarm-title">报警消息</div>
             <div class="mep-alarm-item"><strong>告警</strong><span>【设备离线】1号楼1F强电井</span><b>未处理</b><br><span>光伏并网逆变器100kW-逆变器故障　2026-08-28 08:02:20</span></div>
-            <div class="mep-alarm-item"><strong>告警</strong><span>【设备离线】1号楼1F强电井</span><b>未处理</b><br><span>光伏并网逆变器100kW-逆变器故障　2026-08-28 07:46:46</span></div>
-            <div class="mep-alarm-item"><strong>告警</strong><span>【设备离线】地下B2设备间</span><b>未处理</b><br><span>给排水泵组通讯异常　2026-08-28 07:30:12</span></div>
+            <div class="mep-alarm-item"><strong>预警</strong><span>【设备离线】1号楼1F强电井</span><b>未处理</b><br><span>光伏并网逆变器100kW-逆变器故障　2026-08-28 07:46:46</span></div>
+            <div class="mep-alarm-item"><strong>提醒</strong><span>【设备离线】地下B2设备间</span><b>已处理</b><br><span>给排水泵组通讯异常　2026-08-28 07:30:12</span></div>
           </section>
           <section class="info-panel mep-panel meeting-panel">
             <h2 class="panel-title">联动场景控制<span></span></h2>
@@ -258,7 +258,7 @@
         <tr><td>历史运行监测</td><td>IoT平台设备历史数据</td><td>按今日、本周、本月、本年查询趋势并展示图表。</td></tr>
         <tr><td>设备报警总数</td><td>后台-报警信息</td><td>按当前系统、当前楼层和统计周期统计报警总数。</td></tr>
         <tr><td>未处理/已处理报警</td><td>后台-报警信息状态</td><td>分别统计未处理、处理中、已处理记录。</td></tr>
-        <tr><td>报警消息</td><td>后台-报警信息</td><td>展示报警等级、设备、位置、描述、时间和处理状态。</td></tr>
+        <tr><td>报警消息</td><td>后台-报警信息</td><td>展示报警等级（告警、预警、提醒）、设备、位置、描述、时间和处理状态。</td></tr>
       </tbody></table>
       <h4>楼层设备点位</h4><table><thead><tr><th>字段名称</th><th>数据来源</th></tr></thead><tbody>
         <tr><td>设备点位坐标</td><td>后台-设备管理-设备点位，按楼层平面图坐标渲染。</td></tr><tr><td>设备图例</td><td>后台-设备分类配置的分类图例。</td></tr><tr><td>设备图标</td><td>后台-设备分类上传的设备图标。</td></tr><tr><td>设备名称/编码</td><td>后台-设备管理-设备台账。</td></tr><tr><td>设备筛选分类</td><td>后台-设备分类，按智能化、消防、给排水、空调、照明、供配电筛选。</td></tr>
