@@ -888,7 +888,7 @@
     .workspace.operation-active > .left-rail { grid-template-rows: 300px 1fr; gap: 16px; }
     .workspace.operation-active > .right-rail { grid-template-rows: 250px 250px 1fr; gap: 16px; }
     .workspace.operation-active.operation-management > .left-rail { grid-template-rows: 285px 1fr; }
-    .workspace.operation-active.operation-management > .right-rail { grid-template-rows: 300px 255px 1fr; }
+    .workspace.operation-active.operation-management > .right-rail { grid-template-rows: repeat(2, minmax(0, 1fr)); }
     .workspace.operation-active > .operation-dashboard-panel,
     .workspace.operation-active > .operation-management-panel { position: absolute; z-index: 4; width: 360px; }
     .workspace.operation-active > .operation-asset-total { left: 20px; top: 0; height: 300px; }
@@ -898,9 +898,8 @@
     .workspace.operation-active > .operation-asset-alarm { right: 20px; top: 532px; bottom: 0; }
     .workspace.operation-active > .operation-rental { left: 20px; top: 0; height: 285px; }
     .workspace.operation-active > .operation-floor-rental { left: 20px; top: 301px; bottom: 0; }
-    .workspace.operation-active > .operation-repair { right: 20px; top: 0; height: 300px; }
-    .workspace.operation-active > .operation-work-orders { right: 20px; top: 316px; height: 255px; }
-    .workspace.operation-active > .operation-complaints { right: 20px; top: 587px; bottom: 0; }
+    .workspace.operation-active > .operation-repair { right: 20px; top: 0; height: calc((100% - 16px) / 2); }
+    .workspace.operation-active > .operation-complaints { right: 20px; bottom: 0; height: calc((100% - 16px) / 2); }
     .operation-body { position: relative; z-index: 1; padding: 8px 10px; color: #e8f8fa; }
     .operation-donut-layout { display: grid; grid-template-columns: 126px 1fr; align-items: center; gap: 15px; min-height: 170px; }
     .operation-donut { position: relative; width: 118px; height: 118px; margin: 0 auto; display: grid; place-items: center; border: 1px solid rgba(184, 236, 231, .64); border-radius: 50%; background: conic-gradient(#56ded5 0 74%, #f1bf4c 74% 96%, #ec8778 96% 100%); box-shadow: 0 0 0 7px rgba(78, 215, 219, .1), inset 0 0 15px rgba(121, 244, 229, .24); }
@@ -1085,6 +1084,16 @@
      .service-counter--reference .service-progress small { color: #bde4e6; font-size: 8px; }
      .service-counter--reference .service-progress--rate { grid-template-columns: 1fr; }
      .service-counter--reference .service-progress--rate b { color: #b8f1d1; font-size: 14px; }
+     .workspace.operation-active.operation-management .operation-repair .operation-body,
+     .workspace.operation-active.operation-management .operation-complaints .operation-body { height: calc(100% - 38px); display: flex; min-height: 0; flex-direction: column; padding: 8px 10px 10px; }
+     .workspace.operation-active.operation-management .operation-repair .operation-tabs,
+     .workspace.operation-active.operation-management .operation-complaints .operation-tabs { flex: 0 0 24px; }
+     .workspace.operation-active.operation-management .operation-repair .service-counter--reference,
+     .workspace.operation-active.operation-management .operation-complaints .service-counter--reference { flex: 0 0 104px; width: 100%; min-height: 104px; padding: 4px 2px 6px; }
+     .workspace.operation-active.operation-management .service-message-list { flex: 1; min-height: 0; padding-right: 3px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(86, 224, 229, .72) rgba(9, 43, 82, .36); }
+     .workspace.operation-active.operation-management .service-message-list::-webkit-scrollbar { width: 4px; }
+     .workspace.operation-active.operation-management .service-message-list::-webkit-scrollbar-track { background: rgba(9, 43, 82, .36); }
+     .workspace.operation-active.operation-management .service-message-list::-webkit-scrollbar-thumb { background: rgba(86, 224, 229, .72); }
      .workspace.operation-active.operation-management .operation-section-title { height: 30px; margin: 0 0 7px; padding: 0 8px; border-bottom-color: rgba(112, 229, 226, .54); background: repeating-linear-gradient(-45deg, rgba(80, 191, 216, .22) 0 8px, rgba(58, 120, 169, .1) 8px 16px); font-size: 13px; }
      .workspace.operation-active.operation-management .operation-section-title::after { content: ""; width: 5px; height: 5px; margin-left: auto; background: #f3ca45; transform: skew(-28deg); }
      .workspace.operation-active.operation-management .service-row { min-height: 53px; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 6px; padding: 0 7px; border-left: 2px solid rgba(103, 226, 225, .9); background: linear-gradient(110deg, rgba(58, 133, 169, .58), rgba(28, 77, 126, .58)); }
@@ -1097,6 +1106,12 @@
      .workspace.operation-active.operation-management .service-row em::before { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: #dd8750; transform: translateY(-50%); }
      .workspace.operation-active.operation-management .service-row em.done { color: #c6f5d7; }
      .workspace.operation-active.operation-management .service-row em.done::before { background: #75e7b4; }
+     .workspace.operation-active.operation-management .service-row em.processing { color: #8deaf0; }
+     .workspace.operation-active.operation-management .service-row em.processing::before { background: #50dce6; }
+     .workspace.operation-active.operation-management .service-row em.confirming { color: #ffe38a; }
+     .workspace.operation-active.operation-management .service-row em.confirming::before { background: #e7c34e; }
+     .workspace.operation-active.operation-management .service-row em.closed { color: #b8c7d4; }
+     .workspace.operation-active.operation-management .service-row em.closed::before { background: #8194a5; }
      .operation-dock { position: absolute; z-index: 17; left: 50%; bottom: 62px; display: none; align-items: center; justify-content: center; gap: 10px; transform: translateX(-50%); }
     .workspace.operation-active .operation-dock { display: flex; }
     .operation-dock button { width: 92px; height: 58px; padding: 0 9px; border: 1px solid rgba(105, 211, 226, .62); border-radius: 50%; color: #e8f8fb; background: radial-gradient(circle, rgba(62, 132, 171, .84), rgba(8, 40, 78, .95) 68%); box-shadow: inset 0 0 0 4px rgba(122, 216, 226, .08), 0 0 9px rgba(34, 142, 186, .32); cursor: pointer; font: 12px/1.15 var(--cn); }
