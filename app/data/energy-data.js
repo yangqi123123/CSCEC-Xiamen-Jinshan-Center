@@ -176,6 +176,7 @@
         { key: "deviceName", label: "设备名称", type: "text", placeholder: "请输入设备名称/ID", deviceOnly: true },
         { key: "area", label: "房源", type: "text", placeholder: "请输入房源" },
       ],
+      true,
     ),
   };
 })();
