@@ -51,6 +51,11 @@ body[data-menu-key="broadcast.logs"] .filter-actions label:has(input[data-filter
 body[data-menu-key="broadcast.resources"] .resource-panel .card-title-row .btn { min-width: 80px; }
 body[data-menu-key="broadcast.resources"] .resource-panel .filter-actions .btn,
 body[data-menu-key="broadcast.logs"] .filter-actions .btn { height: 32px; padding: 0 16px; }
+body[data-menu-key="broadcast.resources"] [data-panel="tts"] .filter-actions { grid-template-columns: minmax(0, 1fr) 80px 80px minmax(0, 1fr) !important; }
+body[data-menu-key="broadcast.resources"] [data-panel="tts"] .filter-actions label { grid-column: 1; }
+body[data-menu-key="broadcast.resources"] [data-panel="tts"] .filter-actions .btn[data-action="reset-tts"] { grid-column: 2; }
+body[data-menu-key="broadcast.resources"] [data-panel="tts"] .filter-actions .btn[data-action="search-tts"] { grid-column: 3; }
+body[data-menu-key="broadcast.resources"] [data-panel="tts"] .filter-actions .btn { width: 80px; min-width: 80px; }
 body.broadcast-page .broadcast-multi-trigger::after { content: "\f107" !important; }
 body[data-menu-key="broadcast.terminals"] [data-action="group"] { display: none !important; }
 
