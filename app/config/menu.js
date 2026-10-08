@@ -38,6 +38,18 @@
       ],
     },
     {
+      key: "broadcast",
+      label: "广播管理",
+      icon: "fa-solid fa-tower-broadcast",
+      children: [
+        { key: "broadcast.console", label: "广播控制台", href: "../broadcast/console.html" },
+        { key: "broadcast.tasks", label: "广播任务", href: "../broadcast/tasks.html" },
+        { key: "broadcast.terminals", label: "广播终端", href: "../broadcast/terminals.html" },
+        { key: "broadcast.resources", label: "音频资源", href: "../broadcast/resources.html" },
+        { key: "broadcast.logs", label: "广播日志", href: "../broadcast/logs.html" },
+      ],
+    },
+    {
       key: "energy",
       label: "能源管理",
       icon: "fa-solid fa-bolt",
